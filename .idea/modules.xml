@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ShooTTron.iml" filepath="$PROJECT_DIR$/ShooTTron.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ShooTron.iml" filepath="$PROJECT_DIR$/ShooTron.iml" />
     </modules>
   </component>
 </project>
