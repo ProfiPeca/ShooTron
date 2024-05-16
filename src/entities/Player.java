@@ -45,20 +45,31 @@ public class Player extends Entity {
     }
 
     public void update() {
-
-        if (keyHandler.upDirPr == true) {
-            dir = "up";
-            yCords -= speed;
-        } else if (keyHandler.downDirPr == true) {
-            dir = "down";
-            yCords += speed;
-        } else if (keyHandler.leftDirPr == true) {
-            dir = "left";
-            xCords -= speed;
-        } else if (keyHandler.rightDirPr == true) {
-            dir = "right";
-            xCords += speed;
+        if (keyHandler.upDirPr == true || keyHandler.downDirPr == true || keyHandler.leftDirPr == true || keyHandler.rightDirPr == true) {
+            if (keyHandler.upDirPr == true) {
+                dir = "up";
+                yCords -= speed;
+            } else if (keyHandler.downDirPr == true) {
+                dir = "down";
+                yCords += speed;
+            } else if (keyHandler.leftDirPr == true) {
+                dir = "left";
+                xCords -= speed;
+            } else if (keyHandler.rightDirPr == true) {
+                dir = "right";
+                xCords += speed;
+            }
+            spriteCounter++;
+            if (spriteCounter > 5) {
+                if (spriteFrame == 1) {
+                    spriteFrame = 2;
+                } else if (spriteFrame == 2) {
+                    spriteFrame = 1;
+                }
+                spriteCounter = 0;
+            }
         }
+
     }
 
     public void draw(Graphics2D g2D) {
@@ -70,16 +81,36 @@ public class Player extends Entity {
         BufferedImage image = null;
         switch (dir) {
             case ("up"):
-                image = upFr1;
+                if (spriteFrame == 1) {
+                    image = upFr1;
+                }
+                if (spriteFrame == 2) {
+                    image = upFr2;
+                }
                 break;
             case ("down"):
-                image = downFr1;
+                if (spriteFrame == 1) {
+                    image = downFr1;
+                }
+                if (spriteFrame == 2) {
+                    image = downFr2;
+                }
                 break;
             case ("left"):
-                image = leftFr1;
+                if (spriteFrame == 1) {
+                    image = leftFr1;
+                }
+                if (spriteFrame == 2) {
+                    image = leftFr2;
+                }
                 break;
             case ("right"):
-                image = rightFr1;
+                if (spriteFrame == 1) {
+                    image = rightFr1;
+                }
+                if (spriteFrame == 2) {
+                    image = rightFr2;
+                }
                 break;
         }
         g2D.drawImage(image, xCords, yCords, gamePanel.scaledTileSize, gamePanel.scaledTileSize, null);
