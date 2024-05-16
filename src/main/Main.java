@@ -9,8 +9,8 @@ public class Main {
         gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gameWindow.setResizable(false);
 
-        GraphicsPanel graphicsPanel = new GraphicsPanel();
-        gameWindow.add(graphicsPanel);
+        GamePanel gamePanel = new GamePanel();
+        gameWindow.add(gamePanel);
 
         gameWindow.pack();
 
@@ -18,5 +18,6 @@ public class Main {
         gameWindow.setVisible(true);
 
         System.out.println("nejlepsi hra fr");
+        gamePanel.threadStart();
     }
 }
