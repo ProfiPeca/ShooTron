@@ -44,21 +44,39 @@ public class Player extends Entity {
         }
     }
 
+    /**
+     * updates the movement of the player by continuously checking if the player is holding that key
+     * the first 4 ifs are for diagonal directions, the last 4 are for vertical and horizontal
+     */
     public void update() {
-        if (keyHandler.upDirPr == true || keyHandler.downDirPr == true || keyHandler.leftDirPr == true || keyHandler.rightDirPr == true) {
-            if (keyHandler.upDirPr == true) {
+        if (keyHandler.upDirPr || keyHandler.downDirPr || keyHandler.leftDirPr || keyHandler.rightDirPr) {
+
+            if (keyHandler.upDirPr && keyHandler.leftDirPr) {
+                yCords -= speed / 1.5;
+                xCords -= speed / 1.5;
+            } else if (keyHandler.upDirPr && keyHandler.rightDirPr) {
+                yCords -= speed / 1.5;
+                xCords += speed / 1.5;
+            } else if (keyHandler.downDirPr && keyHandler.leftDirPr) {
+                yCords += speed / 1.5;
+                xCords -= speed / 1.5;
+            } else if (keyHandler.downDirPr && keyHandler.rightDirPr) {
+                yCords += speed / 1.5;
+                xCords += speed / 1.5;
+            } else if (keyHandler.upDirPr) {
                 dir = "up";
                 yCords -= speed;
-            } else if (keyHandler.downDirPr == true) {
+            } else if (keyHandler.downDirPr) {
                 dir = "down";
                 yCords += speed;
-            } else if (keyHandler.leftDirPr == true) {
+            } else if (keyHandler.leftDirPr) {
                 dir = "left";
                 xCords -= speed;
-            } else if (keyHandler.rightDirPr == true) {
+            } else if (keyHandler.rightDirPr) {
                 dir = "right";
                 xCords += speed;
             }
+
             spriteCounter++;
             if (spriteCounter > 5) {
                 if (spriteFrame == 1) {
