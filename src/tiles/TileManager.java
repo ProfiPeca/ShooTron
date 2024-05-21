@@ -17,9 +17,9 @@ public class TileManager {
     public TileManager(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
         tiles = new Tile[10];
-        tilePosStorer = new int[gamePanel.screenColumnNumber][gamePanel.screenRowNumber];
+        tilePosStorer = new int[gamePanel.worldColumnNumber][gamePanel.worldRowNumber];
         tileImageGetter();
-        mapLoader("/maps/gameMap_1.txt");
+        mapLoader("/maps/testMap.txt");
     }
 
     /**
@@ -27,14 +27,21 @@ public class TileManager {
      */
     public void tileImageGetter() {
         try {
+
             tiles[0] = new Tile();
-            tiles[0].tileImage = ImageIO.read(getClass().getResourceAsStream("/tiles/grassTile.png"));
+            tiles[0].tileImage = ImageIO.read(getClass().getResourceAsStream("/tiles/brickTile1.png"));
             tiles[1] = new Tile();
-            tiles[1].tileImage = ImageIO.read(getClass().getResourceAsStream("/tiles/brickTile1.png"));
+            tiles[1].tileImage = ImageIO.read(getClass().getResourceAsStream("/tiles/brickTile2.png"));
             tiles[2] = new Tile();
-            tiles[2].tileImage = ImageIO.read(getClass().getResourceAsStream("/tiles/brickTile2.png"));
+            tiles[2].tileImage = ImageIO.read(getClass().getResourceAsStream("/tiles/dirtTile.png"));
             tiles[3] = new Tile();
-            tiles[3].tileImage = ImageIO.read(getClass().getResourceAsStream("/tiles/waterTile.png"));
+            tiles[3].tileImage = ImageIO.read(getClass().getResourceAsStream("/tiles/grassTile.png"));
+            tiles[4] = new Tile();
+            tiles[4].tileImage = ImageIO.read(getClass().getResourceAsStream("/tiles/labTile.png"));
+            tiles[5] = new Tile();
+            tiles[5].tileImage = ImageIO.read(getClass().getResourceAsStream("/tiles/sandTile.png"));
+            tiles[6] = new Tile();
+            tiles[6].tileImage = ImageIO.read(getClass().getResourceAsStream("/tiles/waterTile.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -44,18 +51,20 @@ public class TileManager {
         try {
             InputStream inputStream = getClass().getResourceAsStream(mapPath);
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-            int collumn = 0;
+            int column = 0;
             int row = 0;
-            while (collumn < gamePanel.screenColumnNumber && row < gamePanel.screenRowNumber) {
+            while (column < gamePanel.worldColumnNumber && row < gamePanel.worldRowNumber) {
+
                 String currRow = bufferedReader.readLine();
-                while (collumn < gamePanel.screenColumnNumber) {
+
+                while (column < gamePanel.worldColumnNumber) {
                     String tileRow[] = currRow.split(" ");
-                    int tileRowNumToInt = Integer.parseInt(tileRow[collumn]);
-                    tilePosStorer[collumn][row] = tileRowNumToInt;
-                    collumn++;
+                    int tileRowNumToInt = Integer.parseInt(tileRow[column]);
+                    tilePosStorer[column][row] = tileRowNumToInt;
+                    column++;
                 }
-                if (collumn == gamePanel.screenColumnNumber) {
-                    collumn = 0;
+                if (column == gamePanel.worldColumnNumber) {
+                    column = 0;
                     row++;
                 }
             }
@@ -68,26 +77,29 @@ public class TileManager {
 
         int tileColumn = 0;
         int tileRow = 0;
-        int xCords = 0;
-        int yCords = 0;
+
         int tileID = 0;
 
-        while (tileColumn < gamePanel.screenColumnNumber && tileRow < gamePanel.screenWidth) {
+        while (tileColumn < gamePanel.worldColumnNumber && tileRow < gamePanel.worldRowNumber) {
 
             try {
                 tileID = tilePosStorer[tileColumn][tileRow];
             } catch (ArrayIndexOutOfBoundsException e) {
             }
+            int xWorld = tileColumn * gamePanel.scaledTileSize;
+            int yWorld = tileRow * gamePanel.scaledTileSize;
+            int xScreen = xWorld - gamePanel.player.xCords + gamePanel.player.screenX;
+            int yScreen = yWorld - gamePanel.player.yCords + gamePanel.player.screenY;
 
-            g2D.drawImage(tiles[tileID].tileImage, xCords, yCords, gamePanel.scaledTileSize, gamePanel.scaledTileSize, null);
+            g2D.drawImage(tiles[tileID].tileImage, xScreen, yScreen, gamePanel.scaledTileSize, gamePanel.scaledTileSize, null);
             tileColumn++;
-            xCords += gamePanel.scaledTileSize;
 
-            if (tileColumn == gamePanel.screenColumnNumber) {
+
+            if (tileColumn == gamePanel.worldColumnNumber) {
                 tileColumn = 0;
-                xCords = 0;
+
                 tileRow++;
-                yCords += gamePanel.scaledTileSize;
+
             }
         }
     }

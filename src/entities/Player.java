@@ -13,17 +13,23 @@ public class Player extends Entity {
     GamePanel gamePanel;
     KeyHandler keyHandler;
 
+    public final int screenX;
+    public final int screenY;
+
     public Player(GamePanel gamePanel, KeyHandler keyHandler) {
         this.gamePanel = gamePanel;
         this.keyHandler = keyHandler;
-
+        // screenX and screenY make sure that the player always stays at the center of the screen
+        screenX = gamePanel.screenWidth / 2 - (gamePanel.scaledTileSize / 2);
+        screenY = gamePanel.screenHeight / 2 - (gamePanel.scaledTileSize / 2);
+        //- (gamePanel.scaledTileSize / 2)
         playerSetter();
         getPlayerImage();
     }
 
     public void playerSetter() {
-        xCords = 100;
-        yCords = 100;
+        xCords = gamePanel.scaledTileSize * 23 ;
+        yCords = gamePanel.scaledTileSize * 21;
         speed = 7;
         dir = "down";
     }
@@ -131,6 +137,6 @@ public class Player extends Entity {
                 }
                 break;
         }
-        g2D.drawImage(image, xCords, yCords, gamePanel.scaledTileSize, gamePanel.scaledTileSize, null);
+        g2D.drawImage(image, screenX, screenY, gamePanel.scaledTileSize, gamePanel.scaledTileSize, null);
     }
 }

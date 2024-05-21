@@ -8,6 +8,8 @@ import java.awt.*;
 
 public class GamePanel extends JPanel implements Runnable {
 
+
+
     final int tileSize = 16;
     final int itemScale = 5;
     public final int scaledTileSize = tileSize * itemScale;
@@ -17,12 +19,17 @@ public class GamePanel extends JPanel implements Runnable {
     public final int screenHeight = scaledTileSize * screenRowNumber;
     public final int screenWidth = scaledTileSize * screenColumnNumber;
 
+    public final int worldColumnNumber = 50;
+    public final int worldRowNumber = 50;
+    public final int worldHeight = scaledTileSize * worldRowNumber;
+    public final int worldWidth = scaledTileSize * worldColumnNumber;
+
     int gameFPS = 60;
 
 
     KeyHandler keyHandler = new KeyHandler();
     Thread gameThread;
-    Player player = new Player(this, keyHandler);
+    public Player player = new Player(this, keyHandler);
     TileManager tileManager = new TileManager(this);
 
     public GamePanel() {
