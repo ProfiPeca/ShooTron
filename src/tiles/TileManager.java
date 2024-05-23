@@ -11,15 +11,15 @@ import java.io.InputStreamReader;
 
 public class TileManager {
     GamePanel gamePanel;
-    Tile[] tiles;
-    int tilePosStorer[][];
+    public Tile[] tiles;
+    public int tilePosStorer[][];
 
     public TileManager(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
         tiles = new Tile[10];
         tilePosStorer = new int[gamePanel.worldColumnNumber][gamePanel.worldRowNumber];
         tileImageGetter();
-        mapLoader("/maps/testMap.txt");
+        mapLoader("/maps/testMap2.txt");
     }
 
     /**
@@ -39,9 +39,13 @@ public class TileManager {
             tiles[4] = new Tile();
             tiles[4].tileImage = ImageIO.read(getClass().getResourceAsStream("/tiles/labTile.png"));
             tiles[5] = new Tile();
-            tiles[5].tileImage = ImageIO.read(getClass().getResourceAsStream("/tiles/sandTile.png"));
+            tiles[5].tileImage = ImageIO.read(getClass().getResourceAsStream("/tiles/labWallTile.png"));
+            tiles[5].hasCollision = true;
             tiles[6] = new Tile();
-            tiles[6].tileImage = ImageIO.read(getClass().getResourceAsStream("/tiles/waterTile.png"));
+            tiles[6].tileImage = ImageIO.read(getClass().getResourceAsStream("/tiles/sandTile.png"));
+            tiles[7] = new Tile();
+            tiles[7].tileImage = ImageIO.read(getClass().getResourceAsStream("/tiles/waterTile.png"));
+            tiles[7].hasCollision = true;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -73,6 +77,10 @@ public class TileManager {
         }
     }
 
+    /**
+     * @param g2D draws all objects in the game
+     * only draws tiles that are inbound of the screen player is in
+     */
     public void tileDraw(Graphics2D g2D) {
 
         int tileColumn = 0;
@@ -91,7 +99,9 @@ public class TileManager {
             int xScreen = xWorld - gamePanel.player.xCords + gamePanel.player.screenX;
             int yScreen = yWorld - gamePanel.player.yCords + gamePanel.player.screenY;
 
-            g2D.drawImage(tiles[tileID].tileImage, xScreen, yScreen, gamePanel.scaledTileSize, gamePanel.scaledTileSize, null);
+            if (xWorld + gamePanel.scaledTileSize> gamePanel.player.xCords - gamePanel.player.screenX && xWorld - gamePanel.scaledTileSize< gamePanel.player.xCords + gamePanel.player.screenX && yWorld + gamePanel.scaledTileSize> gamePanel.player.yCords - gamePanel.player.screenY && yWorld - gamePanel.scaledTileSize< gamePanel.player.yCords + gamePanel.player.screenY) {
+                g2D.drawImage(tiles[tileID].tileImage, xScreen, yScreen, gamePanel.scaledTileSize, gamePanel.scaledTileSize, null);
+            }
             tileColumn++;
 
 

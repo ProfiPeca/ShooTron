@@ -22,13 +22,13 @@ public class Player extends Entity {
         // screenX and screenY make sure that the player always stays at the center of the screen
         screenX = gamePanel.screenWidth / 2 - (gamePanel.scaledTileSize / 2);
         screenY = gamePanel.screenHeight / 2 - (gamePanel.scaledTileSize / 2);
-        //- (gamePanel.scaledTileSize / 2)
+        collisionBox = new Rectangle(gamePanel.scaledTileSize / 6, gamePanel.scaledTileSize / 3, gamePanel.scaledTileSize - gamePanel.scaledTileSize / 3, gamePanel.scaledTileSize - gamePanel.scaledTileSize / 3);
         playerSetter();
         getPlayerImage();
     }
 
     public void playerSetter() {
-        xCords = gamePanel.scaledTileSize * 23 ;
+        xCords = gamePanel.scaledTileSize * 23;
         yCords = gamePanel.scaledTileSize * 21;
         speed = 7;
         dir = "down";
@@ -53,10 +53,12 @@ public class Player extends Entity {
     /**
      * updates the movement of the player by continuously checking if the player is holding that key
      * the first 4 ifs are for diagonal directions, the last 4 are for vertical and horizontal
+     * player can only move through tiles without collision, otherwise he can't
      */
     public void update() {
         if (keyHandler.upDirPr || keyHandler.downDirPr || keyHandler.leftDirPr || keyHandler.rightDirPr) {
 
+            /*
             if (keyHandler.upDirPr && keyHandler.leftDirPr) {
                 yCords -= speed / 1.5;
                 xCords -= speed / 1.5;
@@ -69,18 +71,48 @@ public class Player extends Entity {
             } else if (keyHandler.downDirPr && keyHandler.rightDirPr) {
                 yCords += speed / 1.5;
                 xCords += speed / 1.5;
-            } else if (keyHandler.upDirPr) {
+            }
+
+             */
+            if (keyHandler.upDirPr) {
                 dir = "up";
-                yCords -= speed;
             } else if (keyHandler.downDirPr) {
                 dir = "down";
-                yCords += speed;
             } else if (keyHandler.leftDirPr) {
                 dir = "left";
-                xCords -= speed;
             } else if (keyHandler.rightDirPr) {
                 dir = "right";
-                xCords += speed;
+            }
+
+            entityCollision = false;
+            gamePanel.gameCollision.collisionChecker(this);
+
+            if(entityCollision == false){
+                if (keyHandler.upDirPr && keyHandler.leftDirPr) {
+                    yCords -= speed / 1.5;
+                    xCords -= speed / 1.5;
+                } else if (keyHandler.upDirPr && keyHandler.rightDirPr) {
+                    yCords -= speed / 1.5;
+                    xCords += speed / 1.5;
+                } else if (keyHandler.downDirPr && keyHandler.leftDirPr) {
+                    yCords += speed / 1.5;
+                    xCords -= speed / 1.5;
+                } else if (keyHandler.downDirPr && keyHandler.rightDirPr) {
+                    yCords += speed / 1.5;
+                    xCords += speed / 1.5;
+                } else if (keyHandler.upDirPr) {
+                    dir = "up";
+                    yCords -= speed;
+                } else if (keyHandler.downDirPr) {
+                    dir = "down";
+                    yCords += speed;
+                } else if (keyHandler.leftDirPr) {
+                    dir = "left";
+                    xCords -= speed;
+                } else if (keyHandler.rightDirPr) {
+                    dir = "right";
+                    xCords += speed;
+                }
             }
 
             spriteCounter++;
