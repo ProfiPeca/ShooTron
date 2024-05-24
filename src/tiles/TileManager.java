@@ -79,7 +79,7 @@ public class TileManager {
 
     /**
      * @param g2D draws all objects in the game
-     * only draws tiles that are inbound of the screen player is in
+     *            only draws tiles that are inbound of the screen player is in
      */
     public void tileDraw(Graphics2D g2D) {
 
@@ -99,7 +99,7 @@ public class TileManager {
             int xScreen = xWorld - gamePanel.player.xCords + gamePanel.player.screenX;
             int yScreen = yWorld - gamePanel.player.yCords + gamePanel.player.screenY;
 
-            if (xWorld + gamePanel.scaledTileSize> gamePanel.player.xCords - gamePanel.player.screenX && xWorld - gamePanel.scaledTileSize< gamePanel.player.xCords + gamePanel.player.screenX && yWorld + gamePanel.scaledTileSize> gamePanel.player.yCords - gamePanel.player.screenY && yWorld - gamePanel.scaledTileSize< gamePanel.player.yCords + gamePanel.player.screenY) {
+            if (xWorld + gamePanel.scaledTileSize > gamePanel.player.xCords - gamePanel.player.screenX && xWorld - gamePanel.scaledTileSize < gamePanel.player.xCords + gamePanel.player.screenX && yWorld + gamePanel.scaledTileSize > gamePanel.player.yCords - gamePanel.player.screenY && yWorld - gamePanel.scaledTileSize < gamePanel.player.yCords + gamePanel.player.screenY) {
                 g2D.drawImage(tiles[tileID].tileImage, xScreen, yScreen, gamePanel.scaledTileSize, gamePanel.scaledTileSize, null);
             }
             tileColumn++;

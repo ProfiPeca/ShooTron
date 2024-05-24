@@ -87,7 +87,7 @@ public class Player extends Entity {
             entityCollision = false;
             gamePanel.gameCollision.collisionChecker(this);
 
-            if(entityCollision == false){
+            if (entityCollision == false) {
                 if (keyHandler.upDirPr && keyHandler.leftDirPr) {
                     yCords -= speed / 1.5;
                     xCords -= speed / 1.5;

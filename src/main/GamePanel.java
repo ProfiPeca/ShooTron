@@ -1,13 +1,13 @@
 package main;
 
 import entities.Player;
+import objects.DefaultObject;
 import tiles.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class GamePanel extends JPanel implements Runnable {
-
 
 
     final int tileSize = 16;
@@ -32,6 +32,12 @@ public class GamePanel extends JPanel implements Runnable {
     public Player player = new Player(this, keyHandler);
     TileManager tileManager = new TileManager(this);
     public GameCollision gameCollision = new GameCollision(this);
+    public ObjectPlacer objectPlacer = new ObjectPlacer(this);
+    public DefaultObject objArray[] = new DefaultObject[10];
+
+    public void placeObjectsAtStart() {
+        objectPlacer.objectSetter();
+    }
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -85,10 +91,21 @@ public class GamePanel extends JPanel implements Runnable {
         player.update();
     }
 
+    /**
+     * draws everything in the game
+     * the placement of drawing different stuff is important, otherwise it would incorrectly overlap
+     * tiles are at the bottom, objects are in the middle, and the player is always on top
+     */
     public void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
         Graphics2D g2D = (Graphics2D) graphics;
         tileManager.tileDraw(g2D);
+
+        for (int i = 0; i < objArray.length; i++) {
+            if (objArray[i] != null) {
+                objArray[i].drawObject(g2D, this);
+            }
+        }
         player.draw(g2D);
         g2D.dispose();
     }
