@@ -15,14 +15,20 @@ public class Player extends Entity {
 
     public final int screenX;
     public final int screenY;
+    int keyCardNumber = 0;
 
     public Player(GamePanel gamePanel, KeyHandler keyHandler) {
         this.gamePanel = gamePanel;
         this.keyHandler = keyHandler;
+
         // screenX and screenY make sure that the player always stays at the center of the screen
         screenX = gamePanel.screenWidth / 2 - (gamePanel.scaledTileSize / 2);
         screenY = gamePanel.screenHeight / 2 - (gamePanel.scaledTileSize / 2);
+
         collisionBox = new Rectangle(gamePanel.scaledTileSize / 6, gamePanel.scaledTileSize / 3, gamePanel.scaledTileSize - gamePanel.scaledTileSize / 3, gamePanel.scaledTileSize - gamePanel.scaledTileSize / 3);
+        defColX = collisionBox.x;
+        defColY = collisionBox.y;
+
         playerSetter();
         getPlayerImage();
     }
@@ -32,6 +38,35 @@ public class Player extends Entity {
         yCords = gamePanel.scaledTileSize * 21;
         speed = 7;
         dir = "down";
+    }
+
+    public void objectPickUper(int i) {
+        if(i != 9999) {
+            String pickedUpObjectName = gamePanel.objArray[i].objName;
+
+            switch (pickedUpObjectName) {
+                case ("KeyCard"):
+                    keyCardNumber++;
+                    gamePanel.objArray[i] = null;
+                    System.out.println("keys: "+keyCardNumber);
+                    break;
+                case ("ClosedDoor"):
+                    if(keyCardNumber > 0) {
+                        keyCardNumber--;
+                        gamePanel.objArray[i] = null;
+                        System.out.println("keys: "+keyCardNumber);
+                    }
+
+                    break;
+                case ("ClosedChest"):
+
+                    break;
+                default:
+                    System.out.println("i picked up something weird");
+                    break;
+            }
+        }
+
     }
 
     public void getPlayerImage() {
@@ -85,7 +120,10 @@ public class Player extends Entity {
             }
 
             entityCollision = false;
-            gamePanel.gameCollision.collisionChecker(this);
+            //collision checks
+            gamePanel.gameCollision.collisionTileChecker(this);
+            int collidedObject = gamePanel.gameCollision.collisionObjectChecker(this, true);
+            objectPickUper(collidedObject);
 
             if (entityCollision == false) {
                 if (keyHandler.upDirPr && keyHandler.leftDirPr) {

@@ -14,4 +14,5 @@ public abstract class Entity {
     public int spriteFrame = 1;
     public boolean entityCollision = false;
     public Rectangle collisionBox;
+    public int defColX, defColY;
 }

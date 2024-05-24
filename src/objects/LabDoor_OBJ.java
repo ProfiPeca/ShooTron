@@ -11,5 +11,6 @@ public class LabDoor_OBJ extends DefaultObject {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        hasCollision = true;
     }
 }

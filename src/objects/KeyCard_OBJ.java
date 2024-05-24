@@ -8,7 +8,7 @@ public class KeyCard_OBJ extends DefaultObject {
     public KeyCard_OBJ() {
         objName = "KeyCard";
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/objects/KeyCard.png"));
+            image = ImageIO.read(getClass().getResourceAsStream("/objects/keyCard.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
