@@ -21,8 +21,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public final int worldColumnNumber = 50;
     public final int worldRowNumber = 50;
-    public final int worldHeight = scaledTileSize * worldRowNumber;
-    public final int worldWidth = scaledTileSize * worldColumnNumber;
+
 
     int gameFPS = 60;
 
@@ -31,12 +30,15 @@ public class GamePanel extends JPanel implements Runnable {
     Thread gameThread;
     public Player player = new Player(this, keyHandler);
     TileManager tileManager = new TileManager(this);
+    GameSound gameSound = new GameSound();
+    GameSound gameMusic = new GameSound();
     public GameCollision gameCollision = new GameCollision(this);
     public ObjectPlacer objectPlacer = new ObjectPlacer(this);
     public DefaultObject objArray[] = new DefaultObject[10];
 
-    public void placeObjectsAtStart() {
+    public void game_stuffInitializer() {
         objectPlacer.objectSetter();
+        playSound_MUSIC(0);
     }
 
     public GamePanel() {
@@ -108,5 +110,17 @@ public class GamePanel extends JPanel implements Runnable {
         }
         player.draw(g2D);
         g2D.dispose();
+    }
+    public void playSound_MUSIC(int i) {
+        gameMusic.soundGetter(i);
+        gameMusic.soundPlay();
+        gameMusic.soundLoop();
+    }
+    public void stopSound_MUSIC(){
+        gameMusic.soundStop();
+    }
+    public void playSound_EFFECT(int i) {
+        gameSound.soundGetter(i);
+        gameSound.soundPlay();
     }
 }

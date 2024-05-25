@@ -46,14 +46,21 @@ public class Player extends Entity {
 
             switch (pickedUpObjectName) {
                 case ("KeyCard"):
+                    gamePanel.playSound_EFFECT(3);
                     keyCardNumber++;
                     gamePanel.objArray[i] = null;
                     System.out.println("keys: "+keyCardNumber);
                     break;
                 case ("ClosedDoor"):
                     if(keyCardNumber > 0) {
+                        gamePanel.playSound_EFFECT(4);
                         keyCardNumber--;
-                        gamePanel.objArray[i] = null;
+                        try {
+                            gamePanel.objArray[i].image = ImageIO.read(getClass().getResourceAsStream("/objects/doorOpen.png"));
+                            gamePanel.objArray[i].hasCollision = false;
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                         System.out.println("keys: "+keyCardNumber);
                     }
 

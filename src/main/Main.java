@@ -18,7 +18,7 @@ public class Main {
         gameWindow.setVisible(true);
 
         System.out.println("nejlepsi hra fr");
-        gamePanel.placeObjectsAtStart();
+        gamePanel.game_stuffInitializer();
         gamePanel.threadStart();
     }
 }
