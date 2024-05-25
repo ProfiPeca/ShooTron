@@ -3,7 +3,7 @@ package main;
 import objects.KeyCard_OBJ;
 import objects.LabChest_OBJ;
 import objects.LabDoorClosed_OBJ;
-
+import objects.LevelEndElevator_OBJ;
 
 
 public class ObjectPlacer {
@@ -42,6 +42,10 @@ public class ObjectPlacer {
         gamePanel.objArray[5] = new LabChest_OBJ();
         gamePanel.objArray[5].xCords = gamePanel.scaledTileSize * 40;
         gamePanel.objArray[5].yCords = gamePanel.scaledTileSize * 20;
+
+        gamePanel.objArray[6] = new LevelEndElevator_OBJ();
+        gamePanel.objArray[6].xCords = gamePanel.scaledTileSize * 38;
+        gamePanel.objArray[6].yCords = gamePanel.scaledTileSize * 18;
 
 
     }

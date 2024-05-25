@@ -16,6 +16,7 @@ public class GameSound {
         audioResourceArray[2] = getClass().getResource("/sound/hurt.wav");
         audioResourceArray[3] = getClass().getResource("/sound/pickUp.wav");
         audioResourceArray[4] = getClass().getResource("/sound/labDoorOpen.wav");
+        audioResourceArray[5] = getClass().getResource("/sound/levelCompleteNew.wav");
     }
 
     public void soundGetter(int i) {
