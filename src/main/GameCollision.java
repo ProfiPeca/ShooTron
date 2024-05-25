@@ -80,10 +80,10 @@ public class GameCollision {
                         entity.collisionBox.y -= entity.speed;
 
                         if (entity.collisionBox.intersects(gamePanel.objArray[i].itemCollisionBox)) {
-                            if (gamePanel.objArray[i].hasCollision){
-                                entity.entityCollision=true;
+                            if (gamePanel.objArray[i].hasCollision) {
+                                entity.entityCollision = true;
                             }
-                            if (isPlayer){
+                            if (isPlayer) {
                                 itemIndex = i;
                             }
                         }
@@ -92,10 +92,10 @@ public class GameCollision {
                         entity.collisionBox.y += entity.speed;
 
                         if (entity.collisionBox.intersects(gamePanel.objArray[i].itemCollisionBox)) {
-                            if (gamePanel.objArray[i].hasCollision){
-                                entity.entityCollision=true;
+                            if (gamePanel.objArray[i].hasCollision) {
+                                entity.entityCollision = true;
                             }
-                            if (isPlayer){
+                            if (isPlayer) {
                                 itemIndex = i;
                             }
                         }
@@ -106,10 +106,10 @@ public class GameCollision {
                         entity.collisionBox.x -= entity.speed;
 
                         if (entity.collisionBox.intersects(gamePanel.objArray[i].itemCollisionBox)) {
-                            if (gamePanel.objArray[i].hasCollision){
-                                entity.entityCollision=true;
+                            if (gamePanel.objArray[i].hasCollision) {
+                                entity.entityCollision = true;
                             }
-                            if (isPlayer){
+                            if (isPlayer) {
                                 itemIndex = i;
                             }
                         }
@@ -120,10 +120,10 @@ public class GameCollision {
                         entity.collisionBox.x += entity.speed;
 
                         if (entity.collisionBox.intersects(gamePanel.objArray[i].itemCollisionBox)) {
-                            if (gamePanel.objArray[i].hasCollision){
-                                entity.entityCollision=true;
+                            if (gamePanel.objArray[i].hasCollision) {
+                                entity.entityCollision = true;
                             }
-                            if (isPlayer){
+                            if (isPlayer) {
                                 itemIndex = i;
                             }
                         }

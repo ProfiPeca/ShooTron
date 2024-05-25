@@ -32,9 +32,10 @@ public class GamePanel extends JPanel implements Runnable {
     TileManager tileManager = new TileManager(this);
     GameSound gameSound = new GameSound();
     GameSound gameMusic = new GameSound();
+    public UserInterface userInterface = new UserInterface(this);
     public GameCollision gameCollision = new GameCollision(this);
     public ObjectPlacer objectPlacer = new ObjectPlacer(this);
-    public DefaultObject objArray[] = new DefaultObject[10];
+    public DefaultObject objArray[] = new DefaultObject[20];
 
     public void game_stuffInitializer() {
         objectPlacer.objectSetter();
@@ -96,7 +97,7 @@ public class GamePanel extends JPanel implements Runnable {
     /**
      * draws everything in the game
      * the placement of drawing different stuff is important, otherwise it would incorrectly overlap
-     * tiles are at the bottom, objects are in the middle, and the player is always on top
+     * tiles are at the bottom, objects are second priority, player third and interface is always on top
      */
     public void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
@@ -109,6 +110,7 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
         player.draw(g2D);
+        userInterface.drawInterface(g2D);
         g2D.dispose();
     }
     public void playSound_MUSIC(int i) {

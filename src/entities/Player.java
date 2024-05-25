@@ -2,12 +2,13 @@ package entities;
 
 import main.GamePanel;
 import main.KeyHandler;
+import objects.LabDoorOpen_OBJ;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Objects;
+
 
 public class Player extends Entity {
     GamePanel gamePanel;
@@ -15,7 +16,7 @@ public class Player extends Entity {
 
     public final int screenX;
     public final int screenY;
-    int keyCardNumber = 0;
+    public int keyCardNumber = 0;
 
     public Player(GamePanel gamePanel, KeyHandler keyHandler) {
         this.gamePanel = gamePanel;
@@ -40,8 +41,8 @@ public class Player extends Entity {
         dir = "down";
     }
 
-    public void objectPickUper(int i) {
-        if(i != 9999) {
+    public void objectPickUpper(int i) {
+        if (i != 9999) {
             String pickedUpObjectName = gamePanel.objArray[i].objName;
 
             switch (pickedUpObjectName) {
@@ -49,23 +50,29 @@ public class Player extends Entity {
                     gamePanel.playSound_EFFECT(3);
                     keyCardNumber++;
                     gamePanel.objArray[i] = null;
-                    System.out.println("keys: "+keyCardNumber);
+
+                    gamePanel.userInterface.textPopUp("Key+");
                     break;
                 case ("ClosedDoor"):
-                    if(keyCardNumber > 0) {
+                    if (keyCardNumber > 0) {
+
                         gamePanel.playSound_EFFECT(4);
-                        keyCardNumber--;
-                        try {
+                        gamePanel.objArray[i] = new LabDoorOpen_OBJ();
+                        try{
                             gamePanel.objArray[i].image = ImageIO.read(getClass().getResourceAsStream("/objects/doorOpen.png"));
-                            gamePanel.objArray[i].hasCollision = false;
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                            keyCardNumber--;
+                        }catch (IOException e) {
+
                         }
-                        System.out.println("keys: "+keyCardNumber);
+
+
                     }
 
                     break;
                 case ("ClosedChest"):
+
+                    break;
+                case ("LevelEndElevator"):
 
                     break;
                 default:
@@ -127,10 +134,11 @@ public class Player extends Entity {
             }
 
             entityCollision = false;
+
             //collision checks
             gamePanel.gameCollision.collisionTileChecker(this);
             int collidedObject = gamePanel.gameCollision.collisionObjectChecker(this, true);
-            objectPickUper(collidedObject);
+            objectPickUpper(collidedObject);
 
             if (entityCollision == false) {
                 if (keyHandler.upDirPr && keyHandler.leftDirPr) {
@@ -215,5 +223,7 @@ public class Player extends Entity {
                 break;
         }
         g2D.drawImage(image, screenX, screenY, gamePanel.scaledTileSize, gamePanel.scaledTileSize, null);
+
+
     }
 }

@@ -2,7 +2,8 @@ package main;
 
 import objects.KeyCard_OBJ;
 import objects.LabChest_OBJ;
-import objects.LabDoor_OBJ;
+import objects.LabDoorClosed_OBJ;
+
 
 
 public class ObjectPlacer {
@@ -30,16 +31,18 @@ public class ObjectPlacer {
         gamePanel.objArray[2].xCords = gamePanel.scaledTileSize * 30;
         gamePanel.objArray[2].yCords = gamePanel.scaledTileSize * 18;
 
-        gamePanel.objArray[3] = new LabDoor_OBJ();
+        gamePanel.objArray[3] = new LabDoorClosed_OBJ();
         gamePanel.objArray[3].xCords = gamePanel.scaledTileSize * 39;
         gamePanel.objArray[3].yCords = gamePanel.scaledTileSize * 25;
 
-        gamePanel.objArray[4] = new LabDoor_OBJ();
+        gamePanel.objArray[4] = new LabDoorClosed_OBJ();
         gamePanel.objArray[4].xCords = gamePanel.scaledTileSize * 40;
         gamePanel.objArray[4].yCords = gamePanel.scaledTileSize * 25;
 
         gamePanel.objArray[5] = new LabChest_OBJ();
         gamePanel.objArray[5].xCords = gamePanel.scaledTileSize * 40;
         gamePanel.objArray[5].yCords = gamePanel.scaledTileSize * 20;
+
+
     }
 }

@@ -12,8 +12,7 @@ public abstract class DefaultObject {
     public String objName;
     public boolean hasCollision = false;
     public int xCords, yCords;
-    public Rectangle itemCollisionBox = new Rectangle(0, 0, 80, 80);
-    //gamePanel.scaledTileSize
+    public Rectangle itemCollisionBox = new Rectangle(0, 0, 80, 80 );
     public int defColX = 0, defColY = 0;
 
     public void drawObject(Graphics2D g2D, GamePanel gamePanel) {

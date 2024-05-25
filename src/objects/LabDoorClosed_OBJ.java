@@ -3,8 +3,8 @@ package objects;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 
-public class LabDoor_OBJ extends DefaultObject {
-    public LabDoor_OBJ() {
+public class LabDoorClosed_OBJ extends DefaultObject {
+    public LabDoorClosed_OBJ() {
         objName = "ClosedDoor";
         try {
             image = ImageIO.read(getClass().getResourceAsStream("/objects/doorClosed.png"));
