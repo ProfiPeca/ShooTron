@@ -73,7 +73,7 @@ public class Player extends Entity {
                     System.out.println("it just works");
                     break;
                 case ("LevelEndElevator"):
-                    gamePanel.userInterface.levelCleared = true;
+                    gamePanel.userInterface.setLevelCleared(true);
                     gamePanel.stopSound_MUSIC();
                     gamePanel.playSound_EFFECT(5);
 

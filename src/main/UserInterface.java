@@ -4,6 +4,7 @@ import objects.KeyCard_OBJ;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.text.DecimalFormat;
 
 
 public class UserInterface {
@@ -16,7 +17,9 @@ public class UserInterface {
     private String popUpText = "";
     private int popUpTextDuration = 0;
     private boolean activePopUpText = false;
-    public boolean levelCleared = false;
+    private boolean levelCleared = false;
+    private double levelTimer;
+    DecimalFormat decimalFormat = new DecimalFormat("0.00");
 
     private AlphaComposite UIBackground = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f);
     private AlphaComposite UIInfo = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f);
@@ -50,7 +53,7 @@ public class UserInterface {
             String clearText;
             int clearTextX, clearTextY, clearTextLength;
 
-            clearText = "LEVEL CLEARED";
+            clearText = "LEVEL CLEARED IN: " + decimalFormat.format(levelTimer) + " SECONDS";
             clearTextLength = (int) g2D.getFontMetrics().getStringBounds(clearText, g2D).getWidth();
             clearTextX = (gamePanel.screenWidth - clearTextLength) / 2;
             clearTextY = (gamePanel.screenHeight) / 2;
@@ -63,7 +66,8 @@ public class UserInterface {
             //Background
             g2D.setColor(Color.BLACK);
             g2D.setComposite(UIBackground);
-            g2D.fillRect(0, 0, 250, 100);
+            g2D.fillRect(0, 0, gamePanel.scaledTileSize * 3, gamePanel.scaledTileSize * 2);
+            g2D.fillRect(gamePanel.scaledTileSize * 13 + 70, 0, gamePanel.scaledTileSize * 3, gamePanel.scaledTileSize);
             g2D.setComposite(UIInfo);
             //Interface
             g2D.setFont(interfaceFont);
@@ -72,10 +76,12 @@ public class UserInterface {
             g2D.drawImage(keyNumber_IMG, -(gamePanel.scaledTileSize / 4), 0, gamePanel.scaledTileSize, gamePanel.scaledTileSize, null);
             g2D.drawString("KEYCARDS: " + gamePanel.player.keyCardNumber, 40, 50);
 
+            levelTimer += (double) 1 / 60;
+            g2D.drawString("TIME: " + decimalFormat.format(levelTimer), gamePanel.scaledTileSize * 14, 50);
+
             if (activePopUpText) {
                 g2D.setFont(g2D.getFont().deriveFont(30f));
                 g2D.drawString(popUpText, gamePanel.scaledTileSize, gamePanel.scaledTileSize);
-
                 popUpTextDuration++;
                 if (popUpTextDuration > 120) {
                     popUpTextDuration = 0;
@@ -83,5 +89,9 @@ public class UserInterface {
                 }
             }
         }
+    }
+
+    public void setLevelCleared(boolean levelCleared) {
+        this.levelCleared = levelCleared;
     }
 }
