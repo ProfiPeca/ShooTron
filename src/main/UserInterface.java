@@ -6,11 +6,10 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
 
-
 public class UserInterface {
     private GamePanel gamePanel;
-    Font interfaceFont;
-    Font levelClearedFont;
+    private Font interfaceFont;
+    private Font levelClearedFont;
     private BufferedImage keyNumber_IMG;
 
     //PopUpTextParameters
@@ -19,7 +18,7 @@ public class UserInterface {
     private boolean activePopUpText = false;
     private boolean levelCleared = false;
     private double levelTimer;
-    DecimalFormat decimalFormat = new DecimalFormat("0.00");
+    private DecimalFormat decimalFormat = new DecimalFormat("0.00");
 
     private AlphaComposite UIBackground = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f);
     private AlphaComposite UIInfo = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f);
@@ -30,7 +29,7 @@ public class UserInterface {
         interfaceFont = new Font("Arial", Font.PLAIN, 25);
         levelClearedFont = new Font("Arial", Font.BOLD, 50);
 
-        KeyCard_OBJ keyCard = new KeyCard_OBJ();
+        KeyCard_OBJ keyCard = new KeyCard_OBJ(gamePanel);
         keyNumber_IMG = keyCard.image;
     }
 

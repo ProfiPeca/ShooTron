@@ -1,5 +1,6 @@
 package objects;
 
+import main.GameOptimizer;
 import main.GamePanel;
 
 import java.awt.*;
@@ -14,6 +15,7 @@ public abstract class DefaultObject {
     public int xCords, yCords;
     public Rectangle itemCollisionBox = new Rectangle(0, 0, 80, 80 );
     public int defColX = 0, defColY = 0;
+    public GameOptimizer gameOptimizer = new GameOptimizer();
 
     public void drawObject(Graphics2D g2D, GamePanel gamePanel) {
         int xScreen = xCords - gamePanel.player.xCords + gamePanel.player.screenX;
@@ -22,7 +24,9 @@ public abstract class DefaultObject {
         if (xCords + gamePanel.scaledTileSize > gamePanel.player.xCords - gamePanel.player.screenX && xCords - gamePanel.scaledTileSize < gamePanel.player.xCords + gamePanel.player.screenX && yCords + gamePanel.scaledTileSize > gamePanel.player.yCords - gamePanel.player.screenY && yCords - gamePanel.scaledTileSize < gamePanel.player.yCords + gamePanel.player.screenY) {
             g2D.drawImage(image, xScreen, yScreen, gamePanel.scaledTileSize, gamePanel.scaledTileSize, null);
         }
-
     }
 
+    public void setImage(BufferedImage image) {
+        this.image = image;
+    }
 }

@@ -1,5 +1,6 @@
 package tiles;
 
+import main.GameOptimizer;
 import main.GamePanel;
 
 import javax.imageio.ImageIO;
@@ -19,36 +20,34 @@ public class TileManager {
         tiles = new Tile[10];
         tilePosStorer = new int[gamePanel.worldColumnNumber][gamePanel.worldRowNumber];
         tileImageGetter();
-        mapLoader("/maps/testMap2.txt");
+        mapLoader("/maps/testMap3.txt");
     }
 
     /**
      * loads map from a text file by splitting recently read row
      */
     public void tileImageGetter() {
-        try {
 
-            tiles[0] = new Tile();
-            tiles[0].tileImage = ImageIO.read(getClass().getResourceAsStream("/tiles/brickTile1.png"));
-            tiles[1] = new Tile();
-            tiles[1].tileImage = ImageIO.read(getClass().getResourceAsStream("/tiles/brickTile2.png"));
-            tiles[2] = new Tile();
-            tiles[2].tileImage = ImageIO.read(getClass().getResourceAsStream("/tiles/dirtTile.png"));
-            tiles[3] = new Tile();
-            tiles[3].tileImage = ImageIO.read(getClass().getResourceAsStream("/tiles/grassTile.png"));
-            tiles[4] = new Tile();
-            tiles[4].tileImage = ImageIO.read(getClass().getResourceAsStream("/tiles/labTile.png"));
-            tiles[5] = new Tile();
-            tiles[5].tileImage = ImageIO.read(getClass().getResourceAsStream("/tiles/labWallTile.png"));
-            tiles[5].hasCollision = true;
-            tiles[6] = new Tile();
-            tiles[6].tileImage = ImageIO.read(getClass().getResourceAsStream("/tiles/sandTile.png"));
-            tiles[7] = new Tile();
-            tiles[7].tileImage = ImageIO.read(getClass().getResourceAsStream("/tiles/waterTile.png"));
-            tiles[7].hasCollision = true;
+        tilePreScale(0, "labTile", false);
+        tilePreScale(1, "labWallTile", true);
+        tilePreScale(2, "waterTile", true);
+        tilePreScale(3, "brickTile1", true);
+        tilePreScale(4, "brickTile2", false);
+        tilePreScale(5, "dirtTile", false);
+        tilePreScale(6, "grassTile", false);
+        tilePreScale(7, "sandTile", false);
+    }
+    public void tilePreScale(int i, String imageName, boolean hasCol) {
+        GameOptimizer gameOptimizer = new GameOptimizer();
+        try{
+            tiles[i] = new Tile();
+            tiles[i].tileImage = ImageIO.read(getClass().getResourceAsStream("/tiles/" + imageName +".png"));
+            tiles[i].tileImage = gameOptimizer.imagePreScale(tiles[i].tileImage, gamePanel.scaledTileSize, gamePanel.scaledTileSize);
+            tiles[i].hasCollision = hasCol;
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     public void mapLoader(String mapPath) {
@@ -100,7 +99,7 @@ public class TileManager {
             int yScreen = yWorld - gamePanel.player.yCords + gamePanel.player.screenY;
 
             if (xWorld + gamePanel.scaledTileSize > gamePanel.player.xCords - gamePanel.player.screenX && xWorld - gamePanel.scaledTileSize < gamePanel.player.xCords + gamePanel.player.screenX && yWorld + gamePanel.scaledTileSize > gamePanel.player.yCords - gamePanel.player.screenY && yWorld - gamePanel.scaledTileSize < gamePanel.player.yCords + gamePanel.player.screenY) {
-                g2D.drawImage(tiles[tileID].tileImage, xScreen, yScreen, gamePanel.scaledTileSize, gamePanel.scaledTileSize, null);
+                g2D.drawImage(tiles[tileID].tileImage, xScreen, yScreen, null);
             }
             tileColumn++;
 

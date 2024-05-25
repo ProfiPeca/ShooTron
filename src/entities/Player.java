@@ -1,8 +1,10 @@
 package entities;
 
+import main.GameOptimizer;
 import main.GamePanel;
 import main.KeyHandler;
 import objects.LabDoorOpen_OBJ;
+import tiles.Tile;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -54,7 +56,7 @@ public class Player extends Entity {
                     gamePanel.userInterface.textPopUp("Key+");
                     break;
                 case ("ClosedDoor"):
-                    if(keyCardNumber > 0) {
+                    if (keyCardNumber > 0) {
 
                         try {
                             gamePanel.objArray[i].image = ImageIO.read(getClass().getResourceAsStream("/objects/doorOpen.png"));
@@ -66,7 +68,7 @@ public class Player extends Entity {
                         }
                         gamePanel.playSound_EFFECT(4);
                         keyCardNumber--;
-                        System.out.println("keys: "+keyCardNumber);
+                        System.out.println("keys: " + keyCardNumber);
                     }
                     break;
                 case ("OpenDoor"):
@@ -88,18 +90,26 @@ public class Player extends Entity {
 
     public void getPlayerImage() {
 
+        upFr1 = playerIMGPreScale("shooTronUpFr1");
+        upFr2 = playerIMGPreScale("shooTronUpFr2");
+        downFr1 = playerIMGPreScale("shooTronDownFr1");
+        downFr2 = playerIMGPreScale("shooTronDownFr2");
+        leftFr1 = playerIMGPreScale("shooTronLeftFr1");
+        leftFr2 = playerIMGPreScale("shooTronLeftFr2");
+        rightFr1 = playerIMGPreScale("shooTronRightFr1");
+        rightFr2 = playerIMGPreScale("shooTronRightFr2");
+    }
+
+    public BufferedImage playerIMGPreScale(String imageName) {
+        GameOptimizer gameOptimizer = new GameOptimizer();
+        BufferedImage preScaledImage = null;
         try {
-            upFr1 = ImageIO.read(getClass().getResourceAsStream("/player/shooTronUpFr1.png"));
-            upFr2 = ImageIO.read(getClass().getResourceAsStream("/player/shooTronUpFr2.png"));
-            downFr1 = ImageIO.read(getClass().getResourceAsStream("/player/shooTronDownFr1.png"));
-            downFr2 = ImageIO.read(getClass().getResourceAsStream("/player/shooTronDownFr2.png"));
-            leftFr1 = ImageIO.read(getClass().getResourceAsStream("/player/shooTronLeftFr1.png"));
-            leftFr2 = ImageIO.read(getClass().getResourceAsStream("/player/shooTronLeftFr2.png"));
-            rightFr1 = ImageIO.read(getClass().getResourceAsStream("/player/shooTronRightFr1.png"));
-            rightFr2 = ImageIO.read(getClass().getResourceAsStream("/player/shooTronRightFr2.png"));
+            preScaledImage = ImageIO.read(getClass().getResourceAsStream("/player/" + imageName + ".png"));
+            preScaledImage = gameOptimizer.imagePreScale(preScaledImage, gamePanel.scaledTileSize, gamePanel.scaledTileSize);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return preScaledImage;
     }
 
     /**
@@ -225,7 +235,7 @@ public class Player extends Entity {
                 }
                 break;
         }
-        g2D.drawImage(image, screenX, screenY, gamePanel.scaledTileSize, gamePanel.scaledTileSize, null);
+        g2D.drawImage(image, screenX, screenY, null);
 
 
     }
