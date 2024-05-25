@@ -54,23 +54,23 @@ public class Player extends Entity {
                     gamePanel.userInterface.textPopUp("Key+");
                     break;
                 case ("ClosedDoor"):
-                    if (keyCardNumber > 0) {
+                    if(keyCardNumber > 0) {
 
-                        gamePanel.playSound_EFFECT(4);
-                        gamePanel.objArray[i] = new LabDoorOpen_OBJ();
-                        try{
+                        try {
                             gamePanel.objArray[i].image = ImageIO.read(getClass().getResourceAsStream("/objects/doorOpen.png"));
-                            keyCardNumber--;
-                        }catch (IOException e) {
+                            gamePanel.objArray[i].hasCollision = false;
+                            gamePanel.objArray[i].objName = "OpenDoor";
 
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
-
-
+                        gamePanel.playSound_EFFECT(4);
+                        keyCardNumber--;
+                        System.out.println("keys: "+keyCardNumber);
                     }
-
                     break;
-                case ("ClosedChest"):
-
+                case ("OpenDoor"):
+                    System.out.println("it just works");
                     break;
                 case ("LevelEndElevator"):
 
