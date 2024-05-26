@@ -4,8 +4,14 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
+    private GamePanel gamePanel;
 
     public boolean upDirPr, downDirPr, leftDirPr, rightDirPr;
+
+    public KeyHandler(GamePanel gamePanel) {
+        this.gamePanel = gamePanel;
+    }
+
     @Override
     public void keyTyped(KeyEvent e) {
 
@@ -16,16 +22,23 @@ public class KeyHandler implements KeyListener {
         int pressedKey = e.getKeyCode();
 
         if (pressedKey == KeyEvent.VK_W) {
-            upDirPr=true;
+            upDirPr = true;
         }
         if (pressedKey == KeyEvent.VK_S) {
-            downDirPr=true;
+            downDirPr = true;
         }
         if (pressedKey == KeyEvent.VK_A) {
-            leftDirPr=true;
+            leftDirPr = true;
         }
         if (pressedKey == KeyEvent.VK_D) {
-            rightDirPr=true;
+            rightDirPr = true;
+        }
+        if (pressedKey == KeyEvent.VK_ESCAPE) {
+            if (gamePanel.currGameState == gamePanel.gameRunning) {
+                gamePanel.currGameState = gamePanel.gamePaused;
+            } else if (gamePanel.currGameState == gamePanel.gamePaused) {
+                gamePanel.currGameState = gamePanel.gameRunning;
+            }
         }
     }
 
@@ -34,16 +47,16 @@ public class KeyHandler implements KeyListener {
         int pressedKey = e.getKeyCode();
 
         if (pressedKey == KeyEvent.VK_W) {
-            upDirPr=false;
+            upDirPr = false;
         }
         if (pressedKey == KeyEvent.VK_S) {
-            downDirPr=false;
+            downDirPr = false;
         }
         if (pressedKey == KeyEvent.VK_A) {
-            leftDirPr=false;
+            leftDirPr = false;
         }
         if (pressedKey == KeyEvent.VK_D) {
-            rightDirPr=false;
+            rightDirPr = false;
         }
     }
 }

@@ -1,26 +1,24 @@
 package entities;
 
-import main.GameOptimizer;
 import main.GamePanel;
 import main.KeyHandler;
-import objects.LabDoorOpen_OBJ;
-import tiles.Tile;
 
-import javax.imageio.ImageIO;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 
-public class Player extends Entity {
+public class Player extends DefaultEntity {
     GamePanel gamePanel;
     KeyHandler keyHandler;
 
     public final int screenX;
     public final int screenY;
-    public int keyCardNumber = 0;
+
+    // public int keyCardNumber = 0;
 
     public Player(GamePanel gamePanel, KeyHandler keyHandler) {
+        super(gamePanel);
         this.gamePanel = gamePanel;
         this.keyHandler = keyHandler;
 
@@ -44,7 +42,9 @@ public class Player extends Entity {
     }
 
     public void objectPickUpper(int i) {
+
         if (i != 9999) {
+            /*
             String pickedUpObjectName = gamePanel.objArray[i].objName;
 
             switch (pickedUpObjectName) {
@@ -84,12 +84,13 @@ public class Player extends Entity {
                     System.out.println("you cant pick this");
                     break;
             }
+
+             */
         }
 
     }
 
     public void getPlayerImage() {
-
         upFr1 = playerIMGPreScale("shooTronUpFr1");
         upFr2 = playerIMGPreScale("shooTronUpFr2");
         downFr1 = playerIMGPreScale("shooTronDownFr1");
@@ -101,15 +102,8 @@ public class Player extends Entity {
     }
 
     public BufferedImage playerIMGPreScale(String imageName) {
-        GameOptimizer gameOptimizer = new GameOptimizer();
-        BufferedImage preScaledImage = null;
-        try {
-            preScaledImage = ImageIO.read(getClass().getResourceAsStream("/player/" + imageName + ".png"));
-            preScaledImage = gameOptimizer.imagePreScale(preScaledImage, gamePanel.scaledTileSize, gamePanel.scaledTileSize);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return preScaledImage;
+        this.filePath = "/player/";
+        return entityIMGPreScale(imageName);
     }
 
     /**

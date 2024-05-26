@@ -8,9 +8,8 @@ import java.text.DecimalFormat;
 
 public class UserInterface {
     private GamePanel gamePanel;
-    private Font interfaceFont;
-    private Font levelClearedFont;
-    private BufferedImage keyNumber_IMG;
+    private Graphics2D g2D;
+    private Font interfaceFont, levelClearedFont;
 
     //PopUpTextParameters
     private String popUpText = "";
@@ -29,8 +28,7 @@ public class UserInterface {
         interfaceFont = new Font("Arial", Font.PLAIN, 25);
         levelClearedFont = new Font("Arial", Font.BOLD, 50);
 
-        KeyCard_OBJ keyCard = new KeyCard_OBJ(gamePanel);
-        keyNumber_IMG = keyCard.image;
+
     }
 
     public void textPopUp(String information) {
@@ -45,49 +43,30 @@ public class UserInterface {
      * if level is cleared by going into the elevator, a text will appear
      */
     public void drawInterface(Graphics2D g2D) {
-        if (levelCleared) {
-            g2D.setFont(levelClearedFont);
-            g2D.setColor(Color.GREEN);
+        this.g2D = g2D;
+        g2D.setColor(Color.GREEN);
+        g2D.setFont(interfaceFont);
 
-            String clearText;
-            int clearTextX, clearTextY, clearTextLength;
+        if (gamePanel.currGameState == gamePanel.gameRunning) {
 
-            clearText = "LEVEL CLEARED IN: " + decimalFormat.format(levelTimer) + " SECONDS";
-            clearTextLength = (int) g2D.getFontMetrics().getStringBounds(clearText, g2D).getWidth();
-            clearTextX = (gamePanel.screenWidth - clearTextLength) / 2;
-            clearTextY = (gamePanel.screenHeight) / 2;
-            g2D.drawString(clearText, clearTextX, clearTextY);
-
-            //stops the game
-            gamePanel.gameThread = null;
-
-        } else {
-            //Background
-            g2D.setColor(Color.BLACK);
-            g2D.setComposite(UIBackground);
-            g2D.fillRect(0, 0, gamePanel.scaledTileSize * 3, gamePanel.scaledTileSize * 2);
-            g2D.fillRect(gamePanel.scaledTileSize * 13 + 70, 0, gamePanel.scaledTileSize * 3, gamePanel.scaledTileSize);
-            g2D.setComposite(UIInfo);
-            //Interface
-            g2D.setFont(interfaceFont);
-            g2D.setColor(Color.GREEN);
-
-            g2D.drawImage(keyNumber_IMG, -(gamePanel.scaledTileSize / 4), 0, gamePanel.scaledTileSize, gamePanel.scaledTileSize, null);
-            g2D.drawString("KEYCARDS: " + gamePanel.player.keyCardNumber, 40, 50);
-
-            levelTimer += (double) 1 / 60;
-            g2D.drawString("TIME: " + decimalFormat.format(levelTimer), gamePanel.scaledTileSize * 14, 50);
-
-            if (activePopUpText) {
-                g2D.setFont(g2D.getFont().deriveFont(30f));
-                g2D.drawString(popUpText, gamePanel.scaledTileSize, gamePanel.scaledTileSize);
-                popUpTextDuration++;
-                if (popUpTextDuration > 120) {
-                    popUpTextDuration = 0;
-                    activePopUpText = false;
-                }
-            }
         }
+        if (gamePanel.currGameState == gamePanel.gamePaused) {
+            pauseInterface();
+        }
+    }
+
+    public void pauseInterface() {
+        g2D.setFont(g2D.getFont().deriveFont(Font.PLAIN, 90f));
+        String interfaceText = "GAME PAUSED";
+        int screenX = textCenterX(interfaceText);
+        int screenY = gamePanel.screenHeight / 2;
+        g2D.drawString(interfaceText, screenX, screenY);
+
+    }
+    public int textCenterX(String interfaceText) {
+        int interfaceTextLength = (int) g2D.getFontMetrics().getStringBounds(interfaceText, g2D).getWidth();
+        int screenX = (gamePanel.screenWidth - interfaceTextLength) / 2;
+        return screenX;
     }
 
     public void setLevelCleared(boolean levelCleared) {

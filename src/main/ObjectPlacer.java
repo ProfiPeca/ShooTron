@@ -1,5 +1,6 @@
 package main;
 
+import entities.TestBot;
 import objects.KeyCard_OBJ;
 import objects.LabChest_OBJ;
 import objects.LabDoorClosed_OBJ;
@@ -18,7 +19,7 @@ public class ObjectPlacer {
      */
     public void objectSetter() {
 
-
+        /*
         gamePanel.objArray[0] = new KeyCard_OBJ(gamePanel);
         gamePanel.objArray[0].xCords = gamePanel.scaledTileSize * 28;
         gamePanel.objArray[0].yCords = gamePanel.scaledTileSize * 18;
@@ -48,5 +49,13 @@ public class ObjectPlacer {
         gamePanel.objArray[6].yCords = gamePanel.scaledTileSize * 18;
 
 
+         */
+
+    }
+
+    public void entitySetter() {
+        gamePanel.entityArray[0] = new TestBot(gamePanel);
+        gamePanel.entityArray[0].xCords = gamePanel.scaledTileSize * 10;
+        gamePanel.entityArray[0].yCords = gamePanel.scaledTileSize * 10;
     }
 }

@@ -1,5 +1,6 @@
 package main;
 
+import entities.DefaultEntity;
 import entities.Player;
 import objects.DefaultObject;
 import tiles.TileManager;
@@ -26,7 +27,7 @@ public class GamePanel extends JPanel implements Runnable {
     int gameFPS = 60;
 
 
-    KeyHandler keyHandler = new KeyHandler();
+    KeyHandler keyHandler = new KeyHandler(this);
     Thread gameThread;
     public Player player = new Player(this, keyHandler);
     TileManager tileManager = new TileManager(this);
@@ -36,10 +37,18 @@ public class GamePanel extends JPanel implements Runnable {
     public GameCollision gameCollision = new GameCollision(this);
     public ObjectPlacer objectPlacer = new ObjectPlacer(this);
     public DefaultObject objArray[] = new DefaultObject[20];
+    public DefaultEntity entityArray[] = new DefaultEntity[20];
+
+    public int currGameState;
+    public final int gameRunning = 1, gamePaused = 2;
+
+
 
     public void game_stuffInitializer() {
         objectPlacer.objectSetter();
+        objectPlacer.entitySetter();
         playSound_MUSIC(0);
+        currGameState = gameRunning;
     }
 
     public GamePanel() {
@@ -91,17 +100,26 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-        player.update();
+
+        if(currGameState == gameRunning) {
+            player.update();
+        }
+        if(currGameState == gamePaused) {
+
+        }
+
+
     }
 
     /**
      * draws everything in the game
      * the placement of drawing different stuff is important, otherwise it would incorrectly overlap
-     * tiles are at the bottom, objects are second priority, player third and interface is always on top
+     * tiles are drawn first, objects are second, entities third, player fourth and interface is last
      */
     public void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
         Graphics2D g2D = (Graphics2D) graphics;
+
         tileManager.tileDraw(g2D);
 
         for (int i = 0; i < objArray.length; i++) {
@@ -109,8 +127,17 @@ public class GamePanel extends JPanel implements Runnable {
                 objArray[i].drawObject(g2D, this);
             }
         }
+
+        for(int i = 0; i < entityArray.length; i++) {
+            if (entityArray[i] != null) {
+                entityArray[i].entityDraw(g2D);
+            }
+        }
+
         player.draw(g2D);
+
         userInterface.drawInterface(g2D);
+
         g2D.dispose();
     }
     public void playSound_MUSIC(int i) {
