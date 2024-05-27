@@ -87,7 +87,11 @@ public class Player extends DefaultEntity {
 
              */
         }
-
+    }
+    public void entityInteractionOnCol(int i) {
+        if (i != 9999) {
+            System.out.println("pewBot: COLLISION WILL NOT BE TOLERATED");
+        }
     }
 
     public void getPlayerImage() {
@@ -145,7 +149,9 @@ public class Player extends DefaultEntity {
             //collision checks
             gamePanel.gameCollision.collisionTileChecker(this);
             int collidedObject = gamePanel.gameCollision.collisionObjectChecker(this, true);
+            int collidedEntity = gamePanel.gameCollision.collisionEntityChecker(this, gamePanel.entityArray);
             objectPickUpper(collidedObject);
+            entityInteractionOnCol(collidedEntity);
 
             if (entityCollision == false) {
                 if (keyHandler.upDirPr && keyHandler.leftDirPr) {

@@ -99,8 +99,7 @@ public class GameCollision {
                                 itemIndex = i;
                             }
                         }
-                        if (defaultEntity.collisionBox.intersects(gamePanel.objArray[i].itemCollisionBox)) {
-                        }
+
                         break;
                     case ("left"):
                         defaultEntity.collisionBox.x -= defaultEntity.speed;
@@ -113,8 +112,7 @@ public class GameCollision {
                                 itemIndex = i;
                             }
                         }
-                        if (defaultEntity.collisionBox.intersects(gamePanel.objArray[i].itemCollisionBox)) {
-                        }
+
                         break;
                     case ("right"):
                         defaultEntity.collisionBox.x += defaultEntity.speed;
@@ -127,8 +125,7 @@ public class GameCollision {
                                 itemIndex = i;
                             }
                         }
-                        if (defaultEntity.collisionBox.intersects(gamePanel.objArray[i].itemCollisionBox)) {
-                        }
+
                         break;
                 }
                 defaultEntity.collisionBox.x = defaultEntity.defColX;
@@ -138,5 +135,108 @@ public class GameCollision {
             }
         }
         return itemIndex;
+    }
+
+    public int collisionEntityChecker(DefaultEntity entity, DefaultEntity[] collidedEntity) {
+        int itemIndex = 9999;
+
+        for (int i = 0; i < collidedEntity.length; i++) {
+            if (collidedEntity[i] != null) {
+                entity.collisionBox.x = entity.xCords + entity.collisionBox.x;
+                entity.collisionBox.y = entity.yCords + entity.collisionBox.y;
+
+                collidedEntity[i].collisionBox.x = collidedEntity[i].xCords + collidedEntity[i].collisionBox.x;
+                collidedEntity[i].collisionBox.y = collidedEntity[i].yCords + collidedEntity[i].collisionBox.y;
+
+                switch (entity.dir) {
+                    case ("up"):
+                        entity.collisionBox.y -= entity.speed;
+
+                        if (entity.collisionBox.intersects(collidedEntity[i].collisionBox)) {
+
+                            entity.entityCollision = true;
+                            itemIndex = i;
+                        }
+                        break;
+                    case ("down"):
+                        entity.collisionBox.y += entity.speed;
+
+                        if (entity.collisionBox.intersects(collidedEntity[i].collisionBox)) {
+                            entity.entityCollision = true;
+                            itemIndex = i;
+                        }
+                        break;
+                    case ("left"):
+                        entity.collisionBox.x -= entity.speed;
+
+                        if (entity.collisionBox.intersects(collidedEntity[i].collisionBox)) {
+                            entity.entityCollision = true;
+                            itemIndex = i;
+                        }
+
+                        break;
+                    case ("right"):
+                        entity.collisionBox.x += entity.speed;
+
+                        if (entity.collisionBox.intersects(collidedEntity[i].collisionBox)) {
+                            entity.entityCollision = true;
+                            itemIndex = i;
+                        }
+
+                        break;
+                }
+                entity.collisionBox.x = entity.defColX;
+                entity.collisionBox.y = entity.defColY;
+                collidedEntity[i].collisionBox.x = collidedEntity[i].defColX;
+                collidedEntity[i].collisionBox.y = collidedEntity[i].defColY;
+            }
+        }
+        return itemIndex;
+    }
+
+    public void collisionPlayerChecker(DefaultEntity entity) {
+        entity.collisionBox.x = entity.xCords + entity.collisionBox.x;
+        entity.collisionBox.y = entity.yCords + entity.collisionBox.y;
+
+        gamePanel.player.collisionBox.x = gamePanel.player.xCords + gamePanel.player.collisionBox.x;
+        gamePanel.player.collisionBox.y = gamePanel.player.yCords + gamePanel.player.collisionBox.y;
+
+        switch (entity.dir) {
+            case ("up"):
+                entity.collisionBox.y -= entity.speed;
+
+                if (entity.collisionBox.intersects(gamePanel.player.collisionBox)) {
+
+                    entity.entityCollision = true;
+                }
+                break;
+            case ("down"):
+                entity.collisionBox.y += entity.speed;
+
+                if (entity.collisionBox.intersects(gamePanel.player.collisionBox)) {
+                    entity.entityCollision = true;
+                }
+                break;
+            case ("left"):
+                entity.collisionBox.x -= entity.speed;
+
+                if (entity.collisionBox.intersects(gamePanel.player.collisionBox)) {
+                    entity.entityCollision = true;
+                }
+
+                break;
+            case ("right"):
+                entity.collisionBox.x += entity.speed;
+
+                if (entity.collisionBox.intersects(gamePanel.player.collisionBox)) {
+                    entity.entityCollision = true;
+                }
+
+                break;
+        }
+        entity.collisionBox.x = entity.defColX;
+        entity.collisionBox.y = entity.defColY;
+        gamePanel.player.collisionBox.x = gamePanel.player.defColX;
+        gamePanel.player.collisionBox.y = gamePanel.player.defColY;
     }
 }

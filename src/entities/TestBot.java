@@ -3,6 +3,7 @@ package entities;
 import main.GamePanel;
 
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
 public class TestBot extends DefaultEntity {
     GamePanel gamePanel;
@@ -29,5 +30,28 @@ public class TestBot extends DefaultEntity {
     public BufferedImage pewBotIMGPreScale(String imageName) {
         this.filePath = "/testBot/";
         return entityIMGPreScale(imageName);
+    }
+
+    public void entityAction() {
+        actionCoolDown++;
+
+        if (actionCoolDown == 90) {
+            Random randomDir = new Random();
+            int i = randomDir.nextInt(100) + 1;
+
+            if (i <= 25) {
+                dir = "up";
+            }
+            if (i > 25 && i <= 50) {
+                dir = "down";
+            }
+            if (i > 50 && i <= 75) {
+                dir = "left";
+            }
+            if (i > 75) {
+                dir = "right";
+            }
+            actionCoolDown = 0;
+        }
     }
 }

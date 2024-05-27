@@ -23,6 +23,8 @@ public abstract class DefaultEntity {
     public Rectangle collisionBox = new Rectangle(0, 0, 80, 80);
     public int defColX, defColY;
 
+    protected int actionCoolDown = 0;
+
     public DefaultEntity(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
     }
@@ -50,7 +52,38 @@ public abstract class DefaultEntity {
 
     }
     public void entityUpdate() {
+        entityAction();
+        entityCollision = false;
+        gamePanel.gameCollision.collisionTileChecker(this);
+        gamePanel.gameCollision.collisionObjectChecker(this, false);
+        gamePanel.gameCollision.collisionPlayerChecker(this);
 
+        if(entityCollision == false) {
+            switch (dir) {
+                case ("up"):
+                    yCords -= speed;
+                    break;
+                case ("down"):
+                    yCords += speed;
+                    break;
+                case ("left"):
+                    xCords -= speed;
+                    break;
+                case ("right"):
+                    xCords += speed;
+                    break;
+            }
+        }
+
+        spriteCounter++;
+        if (spriteCounter > 5) {
+            if (spriteFrame == 1) {
+                spriteFrame = 2;
+            } else if (spriteFrame == 2) {
+                spriteFrame = 1;
+            }
+            spriteCounter = 0;
+        }
     }
 
     public void entityDraw(Graphics2D g2D) {

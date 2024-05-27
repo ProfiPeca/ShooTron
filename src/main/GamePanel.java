@@ -27,7 +27,7 @@ public class GamePanel extends JPanel implements Runnable {
     int gameFPS = 60;
 
 
-    KeyHandler keyHandler = new KeyHandler(this);
+    public KeyHandler keyHandler = new KeyHandler(this);
     Thread gameThread;
     public Player player = new Player(this, keyHandler);
     TileManager tileManager = new TileManager(this);
@@ -43,11 +43,11 @@ public class GamePanel extends JPanel implements Runnable {
     public final int gameRunning = 1, gamePaused = 2;
 
 
-
     public void game_stuffInitializer() {
         objectPlacer.objectSetter();
         objectPlacer.entitySetter();
         playSound_MUSIC(0);
+        stopSound_MUSIC();
         currGameState = gameRunning;
     }
 
@@ -101,10 +101,15 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void update() {
 
-        if(currGameState == gameRunning) {
+        if (currGameState == gameRunning) {
             player.update();
+            for (int i = 0; i < entityArray.length; i++) {
+                if (entityArray[i] != null) {
+                    entityArray[i].entityUpdate();
+                }
+            }
         }
-        if(currGameState == gamePaused) {
+        if (currGameState == gamePaused) {
 
         }
 
@@ -128,7 +133,7 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
 
-        for(int i = 0; i < entityArray.length; i++) {
+        for (int i = 0; i < entityArray.length; i++) {
             if (entityArray[i] != null) {
                 entityArray[i].entityDraw(g2D);
             }
@@ -140,14 +145,17 @@ public class GamePanel extends JPanel implements Runnable {
 
         g2D.dispose();
     }
+
     public void playSound_MUSIC(int i) {
         gameMusic.soundGetter(i);
         gameMusic.soundPlay();
         gameMusic.soundLoop();
     }
-    public void stopSound_MUSIC(){
+
+    public void stopSound_MUSIC() {
         gameMusic.soundStop();
     }
+
     public void playSound_EFFECT(int i) {
         gameSound.soundGetter(i);
         gameSound.soundPlay();
