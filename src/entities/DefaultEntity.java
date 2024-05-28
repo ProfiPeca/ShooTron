@@ -22,6 +22,7 @@ public abstract class DefaultEntity {
     public boolean entityCollision = false;
     public Rectangle collisionBox = new Rectangle(0, 0, 80, 80);
     public int defColX, defColY;
+    public String[] dialogueArray = new String[20];
 
     protected int actionCoolDown = 0;
 

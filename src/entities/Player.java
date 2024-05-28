@@ -4,8 +4,10 @@ import main.GamePanel;
 import main.KeyHandler;
 
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 
 public class Player extends DefaultEntity {
@@ -15,7 +17,7 @@ public class Player extends DefaultEntity {
     public final int screenX;
     public final int screenY;
 
-    // public int keyCardNumber = 0;
+    public int keyCardNumber = 0;
 
     public Player(GamePanel gamePanel, KeyHandler keyHandler) {
         super(gamePanel);
@@ -44,7 +46,7 @@ public class Player extends DefaultEntity {
     public void objectPickUpper(int i) {
 
         if (i != 9999) {
-            /*
+
             String pickedUpObjectName = gamePanel.objArray[i].objName;
 
             switch (pickedUpObjectName) {
@@ -75,9 +77,13 @@ public class Player extends DefaultEntity {
                     System.out.println("it just works");
                     break;
                 case ("LevelEndElevator"):
+                    System.out.println("gonna implement this soon");
+                    /*
                     gamePanel.userInterface.setLevelCleared(true);
                     gamePanel.stopSound_MUSIC();
                     gamePanel.playSound_EFFECT(5);
+
+                     */
 
                     break;
                 default:
@@ -85,11 +91,12 @@ public class Player extends DefaultEntity {
                     break;
             }
 
-             */
+
         }
     }
     public void entityInteractionOnCol(int i) {
         if (i != 9999) {
+            gamePanel.currGameState = gamePanel.gameDialogue;
             System.out.println("pewBot: COLLISION WILL NOT BE TOLERATED");
         }
     }

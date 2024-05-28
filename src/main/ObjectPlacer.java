@@ -1,10 +1,7 @@
 package main;
 
 import entities.TestBot;
-import objects.KeyCard_OBJ;
-import objects.LabChest_OBJ;
-import objects.LabDoorClosed_OBJ;
-import objects.LevelEndElevator_OBJ;
+import objects.*;
 
 
 public class ObjectPlacer {
@@ -19,38 +16,23 @@ public class ObjectPlacer {
      */
     public void objectSetter() {
 
-        /*
-        gamePanel.objArray[0] = new KeyCard_OBJ(gamePanel);
-        gamePanel.objArray[0].xCords = gamePanel.scaledTileSize * 28;
-        gamePanel.objArray[0].yCords = gamePanel.scaledTileSize * 18;
+        objectParameterSetter(0, new KeyCard_OBJ(gamePanel), 18, 18);
+        objectParameterSetter(1, new KeyCard_OBJ(gamePanel), 19, 18);
+        objectParameterSetter(2, new KeyCard_OBJ(gamePanel), 20, 18);
 
-        gamePanel.objArray[1] = new KeyCard_OBJ(gamePanel);
-        gamePanel.objArray[1].xCords = gamePanel.scaledTileSize * 29;
-        gamePanel.objArray[1].yCords = gamePanel.scaledTileSize * 18;
+        objectParameterSetter(3, new LabDoorClosed_OBJ(gamePanel), 26, 18);
+        objectParameterSetter(4, new LabDoorClosed_OBJ(gamePanel), 30, 22);
 
-        gamePanel.objArray[2] = new KeyCard_OBJ(gamePanel);
-        gamePanel.objArray[2].xCords = gamePanel.scaledTileSize * 30;
-        gamePanel.objArray[2].yCords = gamePanel.scaledTileSize * 18;
+        objectParameterSetter(5, new LabChest_OBJ(gamePanel), 40, 20);
 
-        gamePanel.objArray[3] = new LabDoorClosed_OBJ(gamePanel);
-        gamePanel.objArray[3].xCords = gamePanel.scaledTileSize * 39;
-        gamePanel.objArray[3].yCords = gamePanel.scaledTileSize * 25;
+        objectParameterSetter(6, new LevelEndElevator_OBJ(gamePanel), 30, 18);
 
-        gamePanel.objArray[4] = new LabDoorClosed_OBJ(gamePanel);
-        gamePanel.objArray[4].xCords = gamePanel.scaledTileSize * 40;
-        gamePanel.objArray[4].yCords = gamePanel.scaledTileSize * 25;
+    }
 
-        gamePanel.objArray[5] = new LabChest_OBJ(gamePanel);
-        gamePanel.objArray[5].xCords = gamePanel.scaledTileSize * 40;
-        gamePanel.objArray[5].yCords = gamePanel.scaledTileSize * 20;
-
-        gamePanel.objArray[6] = new LevelEndElevator_OBJ(gamePanel);
-        gamePanel.objArray[6].xCords = gamePanel.scaledTileSize * 38;
-        gamePanel.objArray[6].yCords = gamePanel.scaledTileSize * 18;
-
-
-         */
-
+    public void objectParameterSetter(int index, DefaultObject object, int xCords, int yCords) {
+        gamePanel.objArray[index] = object;
+        gamePanel.objArray[index].xCords = gamePanel.scaledTileSize * xCords;
+        gamePanel.objArray[index].yCords = gamePanel.scaledTileSize * yCords;
     }
 
     public void entitySetter() {

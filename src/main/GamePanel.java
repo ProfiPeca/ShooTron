@@ -40,7 +40,7 @@ public class GamePanel extends JPanel implements Runnable {
     public DefaultEntity entityArray[] = new DefaultEntity[20];
 
     public int currGameState;
-    public final int gameRunning = 1, gamePaused = 2;
+    public final int gameRunning = 1, gamePaused = 2, gameDialogue = 3;
 
 
     public void game_stuffInitializer() {
