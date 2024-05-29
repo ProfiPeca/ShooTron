@@ -6,14 +6,17 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public class TestBot extends DefaultEntity {
-    GamePanel gamePanel;
+
 
     public TestBot(GamePanel gamePanel) {
+
         super(gamePanel);
+
         dir = "down";
         speed = 5;
 
         getPewBotImage();
+        pewBotPhrases();
     }
 
     public void getPewBotImage() {
@@ -30,6 +33,23 @@ public class TestBot extends DefaultEntity {
     public BufferedImage pewBotIMGPreScale(String imageName) {
         this.filePath = "/testBot/";
         return entityIMGPreScale(imageName);
+    }
+
+    public void pewBotPhrases() {
+        dialogueArray[0] = "HELLO_WORLD";
+        dialogueArray[1] = "SHOOTRON == BAD >:)";
+        dialogueArray[2] = "I LIKE SHOOTING";
+        dialogueArray[3] = "PEW PEW";
+        dialogueArray[4] = "does it work?";
+        dialogueArray[5] = "YEEEEEEEEEEEEEEEEE  !ENTER  EEEES :)";
+    }
+
+    public void entityDialogue() {
+        gamePanel.userInterface.currEntityDialogue = dialogueArray[dialogueNumber];
+        dialogueNumber++;
+        if (dialogueArray[dialogueNumber] == null) {
+            dialogueNumber = 0;
+        }
     }
 
     public void entityAction() {

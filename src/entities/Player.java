@@ -97,6 +97,7 @@ public class Player extends DefaultEntity {
     public void entityInteractionOnCol(int i) {
         if (i != 9999) {
             gamePanel.currGameState = gamePanel.gameDialogue;
+            gamePanel.entityArray[i].entityDialogue();
             System.out.println("pewBot: COLLISION WILL NOT BE TOLERATED");
         }
     }

@@ -47,6 +47,7 @@ public class UserInterface {
      * levelTimer displays time that has passed in the level in seconds
      */
     public void drawInterface(Graphics2D g2D) {
+
         this.g2D = g2D;
 
         g2D.setColor(Color.GREEN);
@@ -99,13 +100,20 @@ public class UserInterface {
     }
 
     private void dialogueInterface() {
-
         int xPos = gamePanel.scaledTileSize * 2, yPos = gamePanel.scaledTileSize / 2, windowWidth = gamePanel.screenWidth - (gamePanel.scaledTileSize * 4), windowHeight = gamePanel.scaledTileSize * 5;
+        dialogueBackground(xPos, yPos, windowWidth, windowHeight);
 
-        dialogueWindow(xPos, yPos, windowWidth, windowHeight);
+        g2D.setFont(g2D.getFont().deriveFont(Font.PLAIN, 50f));
+        xPos += gamePanel.scaledTileSize;
+        yPos += gamePanel.scaledTileSize;
+
+        for(String stringRow : currEntityDialogue.split(" !ENTER " )) {
+            g2D.drawString(stringRow, xPos, yPos);
+            yPos += 50;
+        }
     }
 
-    private void dialogueWindow(int x, int y, int width, int height) {
+    private void dialogueBackground(int x, int y, int width, int height) {
         g2D.setColor(Color.BLACK);
         g2D.setComposite(UIBackground);
         g2D.fillRect(x, y, width, height);

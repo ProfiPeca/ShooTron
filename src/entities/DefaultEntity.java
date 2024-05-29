@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public abstract class DefaultEntity {
-    GamePanel gamePanel;
+    protected GamePanel gamePanel;
     public int xCords, yCords;
     public int speed;
 
@@ -23,6 +23,7 @@ public abstract class DefaultEntity {
     public Rectangle collisionBox = new Rectangle(0, 0, 80, 80);
     public int defColX, defColY;
     public String[] dialogueArray = new String[20];
+    public  int dialogueNumber = 0;
 
     protected int actionCoolDown = 0;
 
@@ -50,8 +51,10 @@ public abstract class DefaultEntity {
     }
 
     public void entityAction() {
-
     }
+    public void entityDialogue() {
+    }
+
     public void entityUpdate() {
         entityAction();
         entityCollision = false;
@@ -59,7 +62,7 @@ public abstract class DefaultEntity {
         gamePanel.gameCollision.collisionObjectChecker(this, false);
         gamePanel.gameCollision.collisionPlayerChecker(this);
 
-        if(entityCollision == false) {
+        if (entityCollision == false) {
             switch (dir) {
                 case ("up"):
                     yCords -= speed;
