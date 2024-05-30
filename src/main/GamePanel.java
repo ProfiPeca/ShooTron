@@ -40,15 +40,19 @@ public class GamePanel extends JPanel implements Runnable {
     public DefaultEntity entityArray[] = new DefaultEntity[20];
 
     public int currGameState;
-    public final int gameRunning = 1, gamePaused = 2, gameDialogue = 3;
+    public final int gameTitle = 0, gameRunning = 1, gamePaused = 2, gameDialogue = 3;
 
 
+    /**
+     * initializes stuff at the start of the game, including placing entities and objects on their corresponding spots, starts playing music and displaying titlescreen
+     * any sort of audio can be played as long as you type in its index
+     */
     public void game_stuffInitializer() {
         objectPlacer.objectSetter();
         objectPlacer.entitySetter();
         playSound_MUSIC(0);
-        stopSound_MUSIC();
-        currGameState = gameRunning;
+        //stopSound_MUSIC();
+        currGameState = gameTitle;
     }
 
     public GamePanel() {
@@ -120,30 +124,35 @@ public class GamePanel extends JPanel implements Runnable {
      * draws everything in the game
      * the placement of drawing different stuff is important, otherwise it would incorrectly overlap
      * tiles are drawn first, objects are second, entities third, player fourth and interface is last
+     * only draws them if the game isn't on the title screen
      */
     public void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
         Graphics2D g2D = (Graphics2D) graphics;
 
-        tileManager.tileDraw(g2D);
+        if (currGameState == gameTitle) {
+            userInterface.drawInterface(g2D);
+        } else {
+            tileManager.tileDraw(g2D);
 
-        for (int i = 0; i < objArray.length; i++) {
-            if (objArray[i] != null) {
-                objArray[i].drawObject(g2D, this);
+            for (int i = 0; i < objArray.length; i++) {
+                if (objArray[i] != null) {
+                    objArray[i].drawObject(g2D, this);
+                }
             }
-        }
 
-        for (int i = 0; i < entityArray.length; i++) {
-            if (entityArray[i] != null) {
-                entityArray[i].entityDraw(g2D);
+            for (int i = 0; i < entityArray.length; i++) {
+                if (entityArray[i] != null) {
+                    entityArray[i].entityDraw(g2D);
+                }
             }
+
+            player.draw(g2D);
+
+            userInterface.drawInterface(g2D);
+
+            g2D.dispose();
         }
-
-        player.draw(g2D);
-
-        userInterface.drawInterface(g2D);
-
-        g2D.dispose();
     }
 
     public void playSound_MUSIC(int i) {
