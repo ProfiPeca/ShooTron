@@ -51,7 +51,7 @@ public class Player extends DefaultEntity {
 
             switch (pickedUpObjectName) {
                 case ("KeyCard"):
-                    gamePanel.playSound_EFFECT(3);
+                    gamePanel.playSound_EFFECT(4);
                     keyCardNumber++;
                     gamePanel.objArray[i] = null;
 
@@ -68,7 +68,7 @@ public class Player extends DefaultEntity {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                        gamePanel.playSound_EFFECT(4);
+                        gamePanel.playSound_EFFECT(5);
                         keyCardNumber--;
                         System.out.println("keys: " + keyCardNumber);
                     }

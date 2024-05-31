@@ -12,11 +12,12 @@ public class GameSound {
 
     public GameSound() {
         audioResourceArray[0] = getClass().getResource("/sound/cold_emptiness.wav");
-        audioResourceArray[1] = getClass().getResource("/sound/shoot.wav");
-        audioResourceArray[2] = getClass().getResource("/sound/hurt.wav");
-        audioResourceArray[3] = getClass().getResource("/sound/pickUp.wav");
-        audioResourceArray[4] = getClass().getResource("/sound/labDoorOpen.wav");
-        audioResourceArray[5] = getClass().getResource("/sound/levelCompleteNew.wav");
+        audioResourceArray[1] = getClass().getResource("/sound/radiant_solitude.wav");
+        audioResourceArray[2] = getClass().getResource("/sound/shoot.wav");
+        audioResourceArray[3] = getClass().getResource("/sound/hurt.wav");
+        audioResourceArray[4] = getClass().getResource("/sound/pickUp.wav");
+        audioResourceArray[5] = getClass().getResource("/sound/labDoorOpen.wav");
+        audioResourceArray[6] = getClass().getResource("/sound/levelCompleteNew.wav");
     }
 
     public void soundGetter(int i) {

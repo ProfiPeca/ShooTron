@@ -96,7 +96,8 @@ public class GamePanel extends JPanel implements Runnable {
                 FPSShower++;
             }
             if (FPSCounter >= 1000000000) {
-                System.out.println("FPS: " + FPSShower);
+                //System.out.println("FPS: " + FPSShower);
+                System.out.println("GAME RUNNING");
                 FPSShower = 0;
                 FPSCounter = 0;
             }

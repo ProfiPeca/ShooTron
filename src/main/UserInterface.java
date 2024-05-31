@@ -21,6 +21,7 @@ public class UserInterface {
 
     //TITLESCREEN
     private int waitNum = 10;
+    private int currOption = 0;
     private String typedInTitle = "";
     private BufferedImage shooTronHD;
 
@@ -117,11 +118,15 @@ public class UserInterface {
         int screenX = textCenterX(interfaceText);
         int screenY = gamePanel.screenHeight / 2;
         g2D.drawString(interfaceText, screenX, screenY);
+
+        g2D.setFont(interfaceFont);
+        interfaceText = "PRESS Q TO EXIT TO GAME MENU";
+        g2D.drawString(interfaceText, textCenterX(interfaceText), screenY + 50);
     }
 
     /**
      * draws the title screen
-     * waitNum is used so that the typedInTitle is written in a sequence by adding titleArrayy indexes to it
+     * waitNum is used so that the typedInTitle is written in a sequence by adding titleArray indexes to it
      */
 
     private void titleInterface() {
@@ -129,47 +134,71 @@ public class UserInterface {
         g2D.setFont(g2D.getFont().deriveFont(Font.BOLD, 150f));
         g2D.setComposite(UIInfo);
 
-        String title = "SHOOTRON";
-        String[] titleArray = title.split("");
-        int xPos = textCenterX(title);
+        String menuText = "SHOOTRON";
+        String[] titleArray = menuText.split("");
+        int xPos = textCenterX(menuText);
         int yPos = gamePanel.scaledTileSize * 3;
-
+        //draws the image of shooTron
         g2D.drawImage(shooTronHD, 500, 500, 700, 700, null);
 
-        //draws the title name in order
+        //draws the title name in order and then toggles the underscore on and off
+
         waitNum++;
         if (waitNum >= 30) {
-            if (typedInTitle.length() < title.length()) {
-
+            if (typedInTitle.length() < menuText.length()) {
                 typedInTitle += titleArray[charToDraw];
                 charToDraw++;
             }
             toggle = !toggle;
             waitNum = 0;
         }
-        if (toggle && title.length() == charToDraw) {
+        if (toggle && menuText.length() == charToDraw) {
             g2D.drawString(typedInTitle + "_", xPos, yPos);
-
         } else {
             g2D.drawString(typedInTitle, xPos, yPos);
         }
+        //draws the options listed in main menu
 
-        g2D.setFont(interfaceFont);
+        g2D.setFont(messageFont);
 
-        String menuText = "START_GAME";
-        xPos = textCenterX(menuText);
-        yPos += gamePanel.scaledTileSize * 4;
-        g2D.drawString(menuText, xPos, yPos);
+        menuText = "START_GAME";
+        //xPos = textCenterX(menuText) - 255;
+        xPos = 225;
+        yPos += gamePanel.scaledTileSize * 2;
+        if (currOption == 0) {
+            if (waitNum < 15) {
+                g2D.drawString(menuText + " <", xPos, yPos);
+            } else if (waitNum >= 15) {
+                g2D.drawString(menuText + "  <", xPos, yPos);
+            }
+        } else {
+            g2D.drawString(menuText, xPos, yPos);
+        }
 
         menuText = "LOAD_GAME";
-        xPos = textCenterX(menuText);
+        //xPos = textCenterX(menuText) - 265;
         yPos += gamePanel.scaledTileSize;
-        g2D.drawString(menuText, xPos, yPos);
+        if (currOption == 1) {
+            if (waitNum < 15) {
+                g2D.drawString(menuText + " <", xPos, yPos);
+            } else if (waitNum >= 15) {
+                g2D.drawString(menuText + "  <", xPos, yPos);
+            }
+        } else {
+            g2D.drawString(menuText, xPos, yPos);
+        }
 
         menuText = "EXIT";
-        xPos = textCenterX(menuText);
         yPos += gamePanel.scaledTileSize;
-        g2D.drawString(menuText, xPos, yPos);
+        if (currOption == 2) {
+            if (waitNum < 15) {
+                g2D.drawString(menuText + " <", xPos, yPos);
+            } else if (waitNum >= 15) {
+                g2D.drawString(menuText + "  <", xPos, yPos);
+            }
+        } else {
+            g2D.drawString(menuText, xPos, yPos);
+        }
 
     }
 
@@ -219,4 +248,14 @@ public class UserInterface {
     public void setLevelCleared(boolean levelCleared) {
         this.levelCleared = levelCleared;
     }
+
+    //region GETSET
+    public int getCurrOption() {
+        return currOption;
+    }
+
+    public void setCurrOption(int currOption) {
+        this.currOption = currOption;
+    }
+    //endregion
 }
