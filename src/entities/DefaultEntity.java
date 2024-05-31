@@ -24,8 +24,8 @@ public abstract class DefaultEntity {
     public int defColX, defColY;
     public String[] dialogueArray = new String[20];
     public  int dialogueNumber = 0;
-
     protected int actionCoolDown = 0;
+    protected int currHP, maxHP;
 
     public DefaultEntity(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
@@ -133,5 +133,25 @@ public abstract class DefaultEntity {
             }
             g2D.drawImage(entityImage, xScreen, yScreen, gamePanel.scaledTileSize, gamePanel.scaledTileSize, null);
         }
+    }
+
+    public int getCurrHP() {
+        return currHP;
+    }
+
+    public void setCurrHP(int currHP) {
+        if(this.currHP > maxHP) {
+            this.currHP = maxHP;
+        } else {
+            this.currHP = currHP;
+        }
+    }
+
+    public int getMaxHP() {
+        return maxHP;
+    }
+
+    public void setMaxHP(int maxHP) {
+        this.maxHP = maxHP;
     }
 }

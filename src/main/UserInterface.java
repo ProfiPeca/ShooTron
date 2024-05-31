@@ -57,7 +57,7 @@ public class UserInterface {
 
     /**
      * draws the user interface on top of everything else
-     * UIBackground is used to change visibility of anything drawn to around 70%, it is used for drawing a rectangle that makes UI more visible, while still letting player see behind the interface
+     * UIBackground is used to change visibility of anything drawn to around 70%, it is used for drawing rectangles that makes UI more visible, while still letting player see behind the interface
      * UIInfo sets visibility back to 100%, so you can see the text better
      * if level is cleared by going into the elevator, a text will appear
      * levelTimer displays time that has passed in the level in seconds
@@ -76,20 +76,24 @@ public class UserInterface {
             //Background
             g2D.setColor(Color.BLACK);
             g2D.setComposite(UIBackground);
-
-            g2D.fillRect(0, 0, gamePanel.scaledTileSize * 3, gamePanel.scaledTileSize * 2);
-            g2D.fillRect(gamePanel.scaledTileSize * 13 + 70, 0, gamePanel.scaledTileSize * 3, gamePanel.scaledTileSize);
+            //leftUp rect
+            g2D.fillRect(0, 0, gamePanel.scaledTileSize * 16, gamePanel.scaledTileSize * 1);
+            //rightUp rect CURRENTLY SUBBED BY LEFTUP
+            //g2D.fillRect(gamePanel.scaledTileSize * 13 + 70, 0, gamePanel.scaledTileSize * 3, gamePanel.scaledTileSize);
+            //rightDown rect
+            g2D.fillRect(gamePanel.scaledTileSize * 12, gamePanel.scaledTileSize * 10, gamePanel.scaledTileSize * 4, gamePanel.scaledTileSize * 3);
 
             //Interface
             //g2D.setFont(interfaceFont);
             g2D.setColor(Color.GREEN);
             g2D.setComposite(UIInfo);
 
-
             g2D.drawString("KEYCARDS: " + gamePanel.player.keyCardNumber, 40, 50);
-
             levelTimer += (double) 1 / 60;
             g2D.drawString("TIME: " + decimalFormat.format(levelTimer), gamePanel.scaledTileSize * 14, 50);
+
+
+            displayHP();
         }
         if (gamePanel.currGameState == gamePanel.gamePaused) {
             pauseInterface();
@@ -97,6 +101,23 @@ public class UserInterface {
         if (gamePanel.currGameState == gamePanel.gameDialogue) {
             dialogueInterface();
         }
+    }
+
+    private void displayHP() {
+
+        int xPos = gamePanel.scaledTileSize * 12 + 10;
+        int yPos = gamePanel.scaledTileSize * 10 + 10;
+        int barWidth = gamePanel.player.getMaxHP();
+        int barHeight = gamePanel.scaledTileSize / 2;
+
+
+        g2D.setColor(Color.GRAY);
+        g2D.setComposite(UIInfo);
+        //HEALTHBG
+        g2D.fillRect(xPos, yPos, barWidth, barHeight);
+        //HEALTHMETER
+        g2D.setColor(Color.GREEN);
+        g2D.fillRect(xPos, yPos + 10, gamePanel.player.getCurrHP(), barHeight - 20);
     }
 
     /**
@@ -142,7 +163,6 @@ public class UserInterface {
         g2D.drawImage(shooTronHD, 500, 500, 700, 700, null);
 
         //draws the title name in order and then toggles the underscore on and off
-
         waitNum++;
         if (waitNum >= 30) {
             if (typedInTitle.length() < menuText.length()) {
@@ -157,8 +177,8 @@ public class UserInterface {
         } else {
             g2D.drawString(typedInTitle, xPos, yPos);
         }
-        //draws the options listed in main menu
 
+        //draws the options listed in main menu and puts an arrow next to the text
         g2D.setFont(messageFont);
 
         menuText = "START_GAME";
@@ -168,7 +188,8 @@ public class UserInterface {
         if (currOption == 0) {
             if (waitNum < 15) {
                 g2D.drawString(menuText + " <", xPos, yPos);
-            } else if (waitNum >= 15) {
+            }
+            if (waitNum >= 15) {
                 g2D.drawString(menuText + "  <", xPos, yPos);
             }
         } else {
@@ -181,7 +202,8 @@ public class UserInterface {
         if (currOption == 1) {
             if (waitNum < 15) {
                 g2D.drawString(menuText + " <", xPos, yPos);
-            } else if (waitNum >= 15) {
+            }
+            if (waitNum >= 15) {
                 g2D.drawString(menuText + "  <", xPos, yPos);
             }
         } else {
@@ -193,7 +215,8 @@ public class UserInterface {
         if (currOption == 2) {
             if (waitNum < 15) {
                 g2D.drawString(menuText + " <", xPos, yPos);
-            } else if (waitNum >= 15) {
+            }
+            if (waitNum >= 15) {
                 g2D.drawString(menuText + "  <", xPos, yPos);
             }
         } else {
@@ -224,10 +247,10 @@ public class UserInterface {
     /**
      * displays the background of messages so they are more visible
      *
-     * @param x
-     * @param y
-     * @param width
-     * @param height
+     * @param x      is the value of the position of the leftmost corner of the rectangle
+     * @param y      is the value of the position of the top side of the rectangle
+     * @param width  is the value of the width of the rectangle
+     * @param height is the value of the height of the rectangle
      */
     private void dialogueBackground(int x, int y, int width, int height) {
         g2D.setColor(Color.BLACK);
@@ -239,7 +262,7 @@ public class UserInterface {
         g2D.drawRect(x, y, width, height);
     }
 
-    public int textCenterX(String interfaceText) {
+    private int textCenterX(String interfaceText) {
         int interfaceTextLength = (int) g2D.getFontMetrics().getStringBounds(interfaceText, g2D).getWidth();
         int screenX = (gamePanel.screenWidth - interfaceTextLength) / 2;
         return screenX;

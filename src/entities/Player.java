@@ -36,11 +36,17 @@ public class Player extends DefaultEntity {
         getPlayerImage();
     }
 
+    /**
+     * sets the coordinates and stats of the player
+     */
     public void playerSetter() {
         xCords = gamePanel.scaledTileSize * 23;
         yCords = gamePanel.scaledTileSize * 21;
         speed = 7;
         dir = "down";
+
+        maxHP = 100;
+        currHP = maxHP;
     }
 
     public void objectPickUpper(int i) {

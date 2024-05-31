@@ -28,7 +28,7 @@ public class KeyHandler implements KeyListener {
         int pressedKey = e.getKeyCode();
         // CHANGES THE CHOSEN OPTION IN MAIN MENU
         if (gamePanel.currGameState == gamePanel.gameTitle) {
-
+            //region TITLEACTION
             if (gamePanel.userInterface.getCurrOption() == 0) {
                 if (pressedKey == KeyEvent.VK_W) {
                     gamePanel.userInterface.setCurrOption(2);
@@ -65,6 +65,7 @@ public class KeyHandler implements KeyListener {
                     System.exit(0);
                 }
             }
+            //endregion
             System.out.println("CURRENTLY CHOSEN BUTTON " + gamePanel.userInterface.getCurrOption());
         }
 
@@ -84,6 +85,13 @@ public class KeyHandler implements KeyListener {
             if (pressedKey == KeyEvent.VK_ESCAPE) {
                 gamePanel.currGameState = gamePanel.gamePaused;
             }
+            if (pressedKey == KeyEvent.VK_F) {
+                gamePanel.player.setCurrHP(gamePanel.player.getCurrHP() - 10);
+            }
+            if (pressedKey == KeyEvent.VK_H) {
+                gamePanel.player.setCurrHP(gamePanel.player.getCurrHP() + 12);
+            }
+
         } else if (gamePanel.currGameState == gamePanel.gamePaused) {
 
             if (pressedKey == KeyEvent.VK_Q) {

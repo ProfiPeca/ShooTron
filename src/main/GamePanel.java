@@ -107,6 +107,10 @@ public class GamePanel extends JPanel implements Runnable {
     public void update() {
 
         if (currGameState == gameRunning) {
+            //checks if player has more than max hp, if yes it will add only max hp
+            if (player.getCurrHP() > player.getMaxHP()) {
+                this.player.setCurrHP(player.getMaxHP());
+            }
             player.update();
             for (int i = 0; i < entityArray.length; i++) {
                 if (entityArray[i] != null) {
