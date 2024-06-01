@@ -7,15 +7,15 @@ public class LabDoorClosed_OBJ extends DefaultEntity {
 
     public LabDoorClosed_OBJ(GamePanel gamePanel) {
         super(gamePanel);
-        objName = "doorClosed";
+        entityName = "doorClosed";
         filePath = "/objects/";
         hasCollision = true;
 
-        downFr1 = entityIMGPreScale(objName);
+        downFr1 = entityIMGPreScale(entityName);
     }
-    public void activate(){
+    public void entityAction(){
         this.hasCollision = false;
-        this.objName = "doorOpen";
-        downFr1 = entityIMGPreScale(objName);
+        this.entityName = "doorOpen";
+        downFr1 = entityIMGPreScale(entityName);
     }
 }

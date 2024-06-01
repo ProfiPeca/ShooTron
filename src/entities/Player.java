@@ -5,8 +5,6 @@ import main.KeyHandler;
 import objects.LabDoorClosed_OBJ;
 
 
-
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 ;
@@ -54,13 +52,14 @@ public class Player extends DefaultEntity {
 
     /**
      * does different stuff based on the activate method
+     *
      * @param i an index of the object array entity
      */
     public void objectPickUpper(int i) {
 
         if (i != 9999) {
 
-            String pickedUpObjectName = gamePanel.objArray[i].objName;
+            String pickedUpObjectName = gamePanel.objArray[i].entityName;
 
             switch (pickedUpObjectName) {
                 case ("keyCard"):
@@ -72,7 +71,7 @@ public class Player extends DefaultEntity {
                     break;
                 case ("doorClosed"):
                     if (keyCardNumber > 0) {
-                        gamePanel.objArray[i].activate();
+                        gamePanel.objArray[i].entityAction();
                         gamePanel.playSound_EFFECT(5);
                         keyCardNumber--;
                         System.out.println("keys: " + keyCardNumber);
@@ -99,11 +98,22 @@ public class Player extends DefaultEntity {
 
         }
     }
+
     public void entityInteractionOnCol(int i) {
         if (i != 9999) {
-            gamePanel.currGameState = gamePanel.gameDialogue;
-            gamePanel.entityArray[i].entityDialogue();
-            System.out.println("pewBot: COLLISION WILL NOT BE TOLERATED");
+            String entityName = gamePanel.entityArray[i].entityName;
+
+            switch (entityName) {
+                case ("testBot"):
+                    gamePanel.currGameState = gamePanel.gameDialogue;
+                    gamePanel.entityArray[i].entityDialogue();
+                    System.out.println("pewBot: COLLISION WILL NOT BE TOLERATED");
+                    break;
+                case ("ramBot"):
+                    //gamePanel.player.setCurrHP(gamePanel.player.getCurrHP() - 1);
+                    break;
+
+            }
         }
     }
 

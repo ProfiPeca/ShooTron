@@ -7,9 +7,9 @@ public class KeyCard_OBJ extends DefaultEntity {
 
     public KeyCard_OBJ(GamePanel gamePanel) {
         super(gamePanel);
-        objName = "keyCard";
+        entityName = "keyCard";
         filePath = "/objects/";
 
-        downFr1 = entityIMGPreScale(objName);
+        downFr1 = entityIMGPreScale(entityName);
     }
 }

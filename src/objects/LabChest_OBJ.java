@@ -7,9 +7,9 @@ public class LabChest_OBJ extends DefaultEntity {
 
     public LabChest_OBJ(GamePanel gamePanel) {
         super(gamePanel);
-        objName = "chestClosed";
+        entityName = "chestClosed";
         filePath = "/objects/";
 
-        downFr1 = entityIMGPreScale(objName);
+        downFr1 = entityIMGPreScale(entityName);
     }
 }

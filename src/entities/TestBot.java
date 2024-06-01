@@ -12,6 +12,7 @@ public class TestBot extends DefaultEntity {
 
         super(gamePanel);
 
+        entityName = "testBot";
         dir = "down";
         speed = 5;
 
@@ -31,7 +32,7 @@ public class TestBot extends DefaultEntity {
     }
 
     public BufferedImage pewBotIMGPreScale(String imageName) {
-        this.filePath = "/testBot/";
+        this.filePath = "/bots/";
         return entityIMGPreScale(imageName);
     }
 

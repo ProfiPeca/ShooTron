@@ -22,15 +22,14 @@ public abstract class DefaultEntity {
     public int spriteCounter = 0;
     public int spriteFrame = 1;
     public boolean entityCollision = false;
+    public boolean entityCollisionWPlayer = false;
     public Rectangle collisionBox = new Rectangle(0, 0, 80, 80);
     public int defColX, defColY;
     public String[] dialogueArray = new String[20];
     public int dialogueNumber = 0;
     protected int actionCoolDown = 0;
     protected int currHP, maxHP;
-
-    public BufferedImage image;
-    public String objName;
+    public String entityName;
     public boolean hasCollision = false;
 
     public DefaultEntity(GamePanel gamePanel) {
@@ -140,13 +139,6 @@ public abstract class DefaultEntity {
             }
             g2D.drawImage(entityImage, xScreen, yScreen, gamePanel.scaledTileSize, gamePanel.scaledTileSize, null);
         }
-    }
-
-    /**
-     * used to toggle some items
-     */
-    public void activate(){
-
     }
 
     public int getCurrHP() {

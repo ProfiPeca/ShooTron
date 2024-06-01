@@ -7,9 +7,9 @@ public class RepairKit_OBJ extends DefaultEntity {
 
     public RepairKit_OBJ(GamePanel gamePanel) {
         super(gamePanel);
-        objName = "repairKit";
+        entityName = "repairKit";
         filePath = "/objects/";
 
-        downFr1 = entityIMGPreScale(objName);
+        downFr1 = entityIMGPreScale(entityName);
     }
 }

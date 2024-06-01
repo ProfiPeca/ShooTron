@@ -7,9 +7,9 @@ public class LevelEndElevator_OBJ extends DefaultEntity {
 
     public LevelEndElevator_OBJ(GamePanel gamePanel) {
         super(gamePanel);
-        objName = "levelEndElevator";
+        entityName = "levelEndElevator";
         filePath = "/objects/";
 
-        downFr1 = entityIMGPreScale(objName);
+        downFr1 = entityIMGPreScale(entityName);
     }
 }

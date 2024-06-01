@@ -1,6 +1,7 @@
 package main;
 
 import entities.DefaultEntity;
+import entities.EnemyBot_ENM;
 import entities.TestBot;
 import objects.*;
 
@@ -32,6 +33,8 @@ public class ObjectPlacer {
 
     public void entitySetter() {
         entityParameterSetter(0, new TestBot(gamePanel), 10, 10);
+
+        entityParameterSetter(1, new EnemyBot_ENM(gamePanel), 12, 12);
 
     }
 

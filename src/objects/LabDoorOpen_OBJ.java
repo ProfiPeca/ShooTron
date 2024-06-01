@@ -7,9 +7,9 @@ public class LabDoorOpen_OBJ extends DefaultEntity {
 
     public LabDoorOpen_OBJ(GamePanel gamePanel) {
         super(gamePanel);
-        objName = "doorOpen";
+        entityName = "doorOpen";
         filePath = "/objects/";
 
-        downFr1 = entityIMGPreScale(objName);
+        downFr1 = entityIMGPreScale(entityName);
     }
 }
