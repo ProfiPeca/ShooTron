@@ -2,11 +2,11 @@ package main;
 
 import entities.DefaultEntity;
 import entities.Player;
-import objects.DefaultObject;
 import tiles.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -36,8 +36,10 @@ public class GamePanel extends JPanel implements Runnable {
     public UserInterface userInterface = new UserInterface(this);
     public GameCollision gameCollision = new GameCollision(this);
     public ObjectPlacer objectPlacer = new ObjectPlacer(this);
-    public DefaultObject objArray[] = new DefaultObject[20];
+    public DefaultEntity objArray[] = new DefaultEntity[20];
     public DefaultEntity entityArray[] = new DefaultEntity[20];
+
+    ArrayList<DefaultEntity> allEntityArray = new ArrayList<>();
 
     public int currGameState;
     public final int gameTitle = 0, gameRunning = 1, gamePaused = 2, gameDialogue = 3;
@@ -142,15 +144,26 @@ public class GamePanel extends JPanel implements Runnable {
 
             for (int i = 0; i < objArray.length; i++) {
                 if (objArray[i] != null) {
-                    objArray[i].drawObject(g2D, this);
+
+                    //objArray[i].drawObject(g2D, this);
+                    objArray[i].entityDraw(g2D);
+                    allEntityArray.add(objArray[i]);
                 }
             }
 
             for (int i = 0; i < entityArray.length; i++) {
                 if (entityArray[i] != null) {
+
                     entityArray[i].entityDraw(g2D);
+
+                    allEntityArray.add(entityArray[i]);
                 }
             }
+            /*
+            for (int i = 0; i < allEntityArray.size(); i++) {
+                allEntityArray.get(i).entityDraw(g2D);
+            }
+             */
 
             player.draw(g2D);
 

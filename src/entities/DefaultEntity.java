@@ -9,13 +9,15 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public abstract class DefaultEntity {
+
     protected GamePanel gamePanel;
+    protected GameOptimizer gameOptimizer;
     public int xCords, yCords;
     public int speed;
 
     public BufferedImage upFr1, upFr2, downFr1, downFr2, leftFr1, leftFr2, rightFr1, rightFr2;
 
-    public String dir;
+    public String dir = "down";
     protected String filePath = "";
     public int spriteCounter = 0;
     public int spriteFrame = 1;
@@ -23,9 +25,13 @@ public abstract class DefaultEntity {
     public Rectangle collisionBox = new Rectangle(0, 0, 80, 80);
     public int defColX, defColY;
     public String[] dialogueArray = new String[20];
-    public  int dialogueNumber = 0;
+    public int dialogueNumber = 0;
     protected int actionCoolDown = 0;
     protected int currHP, maxHP;
+
+    public BufferedImage image;
+    public String objName;
+    public boolean hasCollision = false;
 
     public DefaultEntity(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
@@ -52,6 +58,7 @@ public abstract class DefaultEntity {
 
     public void entityAction() {
     }
+
     public void entityDialogue() {
     }
 
@@ -135,12 +142,19 @@ public abstract class DefaultEntity {
         }
     }
 
+    /**
+     * used to toggle some items
+     */
+    public void activate(){
+
+    }
+
     public int getCurrHP() {
         return currHP;
     }
 
     public void setCurrHP(int currHP) {
-        if(this.currHP > maxHP) {
+        if (this.currHP > maxHP) {
             this.currHP = maxHP;
         } else {
             this.currHP = currHP;

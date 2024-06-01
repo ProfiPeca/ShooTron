@@ -72,14 +72,14 @@ public class GameCollision {
                 defaultEntity.collisionBox.x = defaultEntity.xCords + defaultEntity.collisionBox.x;
                 defaultEntity.collisionBox.y = defaultEntity.yCords + defaultEntity.collisionBox.y;
 
-                gamePanel.objArray[i].itemCollisionBox.x = gamePanel.objArray[i].xCords + gamePanel.objArray[i].itemCollisionBox.x;
-                gamePanel.objArray[i].itemCollisionBox.y = gamePanel.objArray[i].yCords + gamePanel.objArray[i].itemCollisionBox.y;
+                gamePanel.objArray[i].collisionBox.x = gamePanel.objArray[i].xCords + gamePanel.objArray[i].collisionBox.x;
+                gamePanel.objArray[i].collisionBox.y = gamePanel.objArray[i].yCords + gamePanel.objArray[i].collisionBox.y;
 
                 switch (defaultEntity.dir) {
                     case ("up"):
                         defaultEntity.collisionBox.y -= defaultEntity.speed;
 
-                        if (defaultEntity.collisionBox.intersects(gamePanel.objArray[i].itemCollisionBox)) {
+                        if (defaultEntity.collisionBox.intersects(gamePanel.objArray[i].collisionBox)) {
                             if (gamePanel.objArray[i].hasCollision) {
                                 defaultEntity.entityCollision = true;
                             }
@@ -91,7 +91,7 @@ public class GameCollision {
                     case ("down"):
                         defaultEntity.collisionBox.y += defaultEntity.speed;
 
-                        if (defaultEntity.collisionBox.intersects(gamePanel.objArray[i].itemCollisionBox)) {
+                        if (defaultEntity.collisionBox.intersects(gamePanel.objArray[i].collisionBox)) {
                             if (gamePanel.objArray[i].hasCollision) {
                                 defaultEntity.entityCollision = true;
                             }
@@ -104,7 +104,7 @@ public class GameCollision {
                     case ("left"):
                         defaultEntity.collisionBox.x -= defaultEntity.speed;
 
-                        if (defaultEntity.collisionBox.intersects(gamePanel.objArray[i].itemCollisionBox)) {
+                        if (defaultEntity.collisionBox.intersects(gamePanel.objArray[i].collisionBox)) {
                             if (gamePanel.objArray[i].hasCollision) {
                                 defaultEntity.entityCollision = true;
                             }
@@ -117,7 +117,7 @@ public class GameCollision {
                     case ("right"):
                         defaultEntity.collisionBox.x += defaultEntity.speed;
 
-                        if (defaultEntity.collisionBox.intersects(gamePanel.objArray[i].itemCollisionBox)) {
+                        if (defaultEntity.collisionBox.intersects(gamePanel.objArray[i].collisionBox)) {
                             if (gamePanel.objArray[i].hasCollision) {
                                 defaultEntity.entityCollision = true;
                             }
@@ -130,8 +130,8 @@ public class GameCollision {
                 }
                 defaultEntity.collisionBox.x = defaultEntity.defColX;
                 defaultEntity.collisionBox.y = defaultEntity.defColY;
-                gamePanel.objArray[i].itemCollisionBox.x = gamePanel.objArray[i].defColX;
-                gamePanel.objArray[i].itemCollisionBox.y = gamePanel.objArray[i].defColY;
+                gamePanel.objArray[i].collisionBox.x = gamePanel.objArray[i].defColX;
+                gamePanel.objArray[i].collisionBox.y = gamePanel.objArray[i].defColY;
             }
         }
         return itemIndex;

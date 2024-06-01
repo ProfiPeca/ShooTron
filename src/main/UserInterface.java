@@ -1,7 +1,5 @@
 package main;
 
-import objects.KeyCard_OBJ;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;

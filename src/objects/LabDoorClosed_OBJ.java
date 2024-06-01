@@ -1,21 +1,21 @@
 package objects;
 
+import entities.DefaultEntity;
 import main.GamePanel;
 
-import javax.imageio.ImageIO;
-import java.io.IOException;
+public class LabDoorClosed_OBJ extends DefaultEntity {
 
-public class LabDoorClosed_OBJ extends DefaultObject {
-
-    private GamePanel gamePanel;
     public LabDoorClosed_OBJ(GamePanel gamePanel) {
-        objName = "ClosedDoor";
-        try {
-            image = ImageIO.read(getClass().getResourceAsStream("/objects/doorClosed.png"));
-            gameOptimizer.imagePreScale(image, gamePanel.scaledTileSize, gamePanel.scaledTileSize);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        super(gamePanel);
+        objName = "doorClosed";
+        filePath = "/objects/";
         hasCollision = true;
+
+        downFr1 = entityIMGPreScale(objName);
+    }
+    public void activate(){
+        this.hasCollision = false;
+        this.objName = "doorOpen";
+        downFr1 = entityIMGPreScale(objName);
     }
 }

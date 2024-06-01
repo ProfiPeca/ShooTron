@@ -1,5 +1,6 @@
 package main;
 
+import entities.DefaultEntity;
 import entities.TestBot;
 import objects.*;
 
@@ -29,15 +30,29 @@ public class ObjectPlacer {
 
     }
 
-    public void objectParameterSetter(int index, DefaultObject object, int xCords, int yCords) {
+    public void entitySetter() {
+        entityParameterSetter(0, new TestBot(gamePanel), 10, 10);
+
+    }
+
+    /**
+     * simplifies placement of entities
+     *
+     * @param index  of the item in the array
+     * @param object what will it draw
+     * @param xCords location
+     * @param yCords location
+     */
+    public void objectParameterSetter(int index, DefaultEntity object, int xCords, int yCords) {
         gamePanel.objArray[index] = object;
         gamePanel.objArray[index].xCords = gamePanel.scaledTileSize * xCords;
         gamePanel.objArray[index].yCords = gamePanel.scaledTileSize * yCords;
     }
 
-    public void entitySetter() {
-        gamePanel.entityArray[0] = new TestBot(gamePanel);
-        gamePanel.entityArray[0].xCords = gamePanel.scaledTileSize * 10;
-        gamePanel.entityArray[0].yCords = gamePanel.scaledTileSize * 10;
+
+    public void entityParameterSetter(int index, DefaultEntity object, int xCords, int yCords) {
+        gamePanel.entityArray[index] = object;
+        gamePanel.entityArray[index].xCords = gamePanel.scaledTileSize * xCords;
+        gamePanel.entityArray[index].yCords = gamePanel.scaledTileSize * yCords;
     }
 }

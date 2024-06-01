@@ -2,17 +2,20 @@ package entities;
 
 import main.GamePanel;
 import main.KeyHandler;
+import objects.LabDoorClosed_OBJ;
 
 
-import javax.imageio.ImageIO;
+
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
+;
 
 
 public class Player extends DefaultEntity {
     GamePanel gamePanel;
     KeyHandler keyHandler;
+    private LabDoorClosed_OBJ labDoorClosed;
 
     public final int screenX;
     public final int screenY;
@@ -49,6 +52,10 @@ public class Player extends DefaultEntity {
         currHP = maxHP;
     }
 
+    /**
+     * does different stuff based on the activate method
+     * @param i an index of the object array entity
+     */
     public void objectPickUpper(int i) {
 
         if (i != 9999) {
@@ -56,30 +63,22 @@ public class Player extends DefaultEntity {
             String pickedUpObjectName = gamePanel.objArray[i].objName;
 
             switch (pickedUpObjectName) {
-                case ("KeyCard"):
+                case ("keyCard"):
                     gamePanel.playSound_EFFECT(4);
                     keyCardNumber++;
                     gamePanel.objArray[i] = null;
 
                     gamePanel.userInterface.textPopUp("Key+");
                     break;
-                case ("ClosedDoor"):
+                case ("doorClosed"):
                     if (keyCardNumber > 0) {
-
-                        try {
-                            gamePanel.objArray[i].image = ImageIO.read(getClass().getResourceAsStream("/objects/doorOpen.png"));
-                            gamePanel.objArray[i].hasCollision = false;
-                            gamePanel.objArray[i].objName = "OpenDoor";
-
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        gamePanel.objArray[i].activate();
                         gamePanel.playSound_EFFECT(5);
                         keyCardNumber--;
                         System.out.println("keys: " + keyCardNumber);
                     }
                     break;
-                case ("OpenDoor"):
+                case ("doorOpen"):
                     System.out.println("it just works");
                     break;
                 case ("LevelEndElevator"):
