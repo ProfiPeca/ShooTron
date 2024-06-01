@@ -8,12 +8,11 @@ import java.util.Random;
 
 public class EnemyBot_ENM extends DefaultEntity {
 
-    private int dmgCooldown = 0;
     public EnemyBot_ENM(GamePanel gamePanel) {
         super(gamePanel);
 
         entityName = "ramBot";
-        speed = 5;
+        speed = 3;
         maxHP = 30;
         currHP = maxHP;
         collisionBox.y = 22;
@@ -45,7 +44,6 @@ public class EnemyBot_ENM extends DefaultEntity {
         actionCoolDown++;
         this.dmgCooldown++;
 
-
         if (actionCoolDown == 90) {
             Random randomDir = new Random();
             int i = randomDir.nextInt(100) + 1;
@@ -67,12 +65,27 @@ public class EnemyBot_ENM extends DefaultEntity {
         if (entityCollisionWPlayer && dmgCooldown >= 15) {
             gamePanel.player.setCurrHP(gamePanel.player.getCurrHP() - 15);
             dmgCooldown = 0;
-        }
+            gamePanel.playSound_EFFECT(3);
 
+        }
     }
 
+    /**
+     * removes enemy if its hp is zero or lower after it plays the animation
+     */
     public void entityUpdate() {
         super.entityUpdate();
-
+        if (currHP <= 0) {
+            isExploding = true;
+        }
+        if (isAlive == false) {
+            for (int i = 0; i < gamePanel.entityArray.length; i++) {
+                if (gamePanel.entityArray[i] != null) {
+                    if (gamePanel.entityArray[i].equals(this)) {
+                        gamePanel.entityArray[i] = null;
+                    }
+                }
+            }
+        }
     }
 }

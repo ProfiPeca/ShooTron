@@ -66,7 +66,6 @@ public class KeyHandler implements KeyListener {
                 }
             }
             //endregion
-            System.out.println("CURRENTLY CHOSEN BUTTON " + gamePanel.userInterface.getCurrOption());
         }
 
         if (gamePanel.currGameState == gamePanel.gameRunning) {

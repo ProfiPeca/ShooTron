@@ -28,7 +28,12 @@ public abstract class DefaultEntity {
     public String[] dialogueArray = new String[20];
     public int dialogueNumber = 0;
     protected int actionCoolDown = 0;
-    protected int currHP, maxHP;
+    protected int maxHP = 50;
+    protected int currHP = maxHP;
+    protected int dmgCooldown = 0;
+    protected boolean isAlive = true;
+    protected boolean isExploding = false;
+    protected int dyingFrameInt = 0;
     public String entityName;
     public boolean hasCollision = false;
 
@@ -68,6 +73,9 @@ public abstract class DefaultEntity {
         gamePanel.gameCollision.collisionObjectChecker(this, false);
         gamePanel.gameCollision.collisionPlayerChecker(this);
 
+
+
+
         if (entityCollision == false) {
             switch (dir) {
                 case ("up"):
@@ -96,6 +104,10 @@ public abstract class DefaultEntity {
         }
     }
 
+    /**
+     * draws the entity, if its hp is zero it will play animation and get removed
+     * @param g2D 2D graphics
+     */
     public void entityDraw(Graphics2D g2D) {
         BufferedImage entityImage = null;
         int xScreen = xCords - gamePanel.player.xCords + gamePanel.player.screenX;
@@ -136,6 +148,34 @@ public abstract class DefaultEntity {
                         entityImage = rightFr2;
                     }
                     break;
+            }
+            if (isExploding) {
+                this.speed = 0;
+                dyingFrameInt++;
+                try {
+                    int dyingFrDur = 10;
+                    if (dyingFrameInt < dyingFrDur) {
+                        entityImage = ImageIO.read(getClass().getResourceAsStream("/misc/explosion_fr1.png"));
+                    }
+                    if (dyingFrameInt >= dyingFrDur && dyingFrameInt < dyingFrDur * 2) {
+                        entityImage = ImageIO.read(getClass().getResourceAsStream("/misc/explosion_fr2.png"));
+                    }
+                    if (dyingFrameInt >= dyingFrDur * 2 && dyingFrameInt < dyingFrDur * 3) {
+                        entityImage = ImageIO.read(getClass().getResourceAsStream("/misc/explosion_fr3.png"));
+                    }
+                    if (dyingFrameInt >= dyingFrDur * 3 && dyingFrameInt < dyingFrDur * 4) {
+                        entityImage = ImageIO.read(getClass().getResourceAsStream("/misc/explosion_fr4.png"));
+                    }
+                    if (dyingFrameInt >= dyingFrDur * 4 && dyingFrameInt < dyingFrDur * 5) {
+                        entityImage = ImageIO.read(getClass().getResourceAsStream("/misc/explosion_fr5.png"));
+                    }
+                    if (dyingFrameInt >= 49) {
+                        isAlive = false;
+                        gamePanel.playSound_EFFECT(3);
+                    }
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
             g2D.drawImage(entityImage, xScreen, yScreen, gamePanel.scaledTileSize, gamePanel.scaledTileSize, null);
         }

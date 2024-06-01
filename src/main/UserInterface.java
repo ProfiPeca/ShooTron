@@ -180,7 +180,7 @@ public class UserInterface {
         g2D.setFont(messageFont);
 
         menuText = "START_GAME";
-        //xPos = textCenterX(menuText) - 255;
+
         xPos = 225;
         yPos += gamePanel.scaledTileSize * 2;
         if (currOption == 0) {
@@ -195,7 +195,7 @@ public class UserInterface {
         }
 
         menuText = "LOAD_GAME";
-        //xPos = textCenterX(menuText) - 265;
+
         yPos += gamePanel.scaledTileSize;
         if (currOption == 1) {
             if (waitNum < 15) {

@@ -80,14 +80,16 @@ public class Player extends DefaultEntity {
                 case ("doorOpen"):
                     System.out.println("it just works");
                     break;
-                case ("LevelEndElevator"):
+                case ("levelEndElevator"):
                     System.out.println("gonna implement this soon");
-                    /*
-                    gamePanel.userInterface.setLevelCleared(true);
-                    gamePanel.stopSound_MUSIC();
-                    gamePanel.playSound_EFFECT(5);
 
+                    gamePanel.player.xCords += 500;
+                    /*
+                    gamePanel.stopSound_MUSIC();
+                    gamePanel.playSound_EFFECT(6);
                      */
+
+                    gamePanel.objArray[i].entityName = "noMoreTP";
 
                     break;
                 default:
@@ -99,6 +101,11 @@ public class Player extends DefaultEntity {
         }
     }
 
+    /**
+     * performs action with entity
+     *
+     * @param i id of entity
+     */
     public void entityInteractionOnCol(int i) {
         if (i != 9999) {
             String entityName = gamePanel.entityArray[i].entityName;
@@ -110,9 +117,18 @@ public class Player extends DefaultEntity {
                     System.out.println("pewBot: COLLISION WILL NOT BE TOLERATED");
                     break;
                 case ("ramBot"):
-                    //gamePanel.player.setCurrHP(gamePanel.player.getCurrHP() - 1);
-                    break;
+                    gamePanel.player.dmgCooldown++;
+                    if (dmgCooldown >= 15) {
+                        gamePanel.entityArray[i].currHP -= 16;
+                        gamePanel.player.dmgCooldown = 0;
+                        System.out.println("IM HURT IM LOW ON HP + " + gamePanel.entityArray[i].currHP);
+                        gamePanel.playSound_EFFECT(3);
+                    }
 
+                    if (gamePanel.entityArray[i].isAlive == false && gamePanel.entityArray[i].dyingFrameInt >= 50) {
+                        gamePanel.entityArray[i] = null;
+                    }
+                    break;
             }
         }
     }
@@ -141,22 +157,6 @@ public class Player extends DefaultEntity {
     public void update() {
         if (keyHandler.upDirPr || keyHandler.downDirPr || keyHandler.leftDirPr || keyHandler.rightDirPr) {
 
-            /*
-            if (keyHandler.upDirPr && keyHandler.leftDirPr) {
-                yCords -= speed / 1.5;
-                xCords -= speed / 1.5;
-            } else if (keyHandler.upDirPr && keyHandler.rightDirPr) {
-                yCords -= speed / 1.5;
-                xCords += speed / 1.5;
-            } else if (keyHandler.downDirPr && keyHandler.leftDirPr) {
-                yCords += speed / 1.5;
-                xCords -= speed / 1.5;
-            } else if (keyHandler.downDirPr && keyHandler.rightDirPr) {
-                yCords += speed / 1.5;
-                xCords += speed / 1.5;
-            }
-
-             */
             if (keyHandler.upDirPr) {
                 dir = "up";
             } else if (keyHandler.downDirPr) {
@@ -219,10 +219,6 @@ public class Player extends DefaultEntity {
 
     public void draw(Graphics2D g2D) {
 
-        /*
-        g2D.setColor(Color.white);
-        g2D.fillRect(xCords, yCords, gamePanel.scaledTileSize, gamePanel.scaledTileSize);
-         */
         BufferedImage image = null;
         switch (dir) {
             case ("up"):

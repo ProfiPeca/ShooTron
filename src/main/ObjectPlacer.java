@@ -58,4 +58,6 @@ public class ObjectPlacer {
         gamePanel.entityArray[index].xCords = gamePanel.scaledTileSize * xCords;
         gamePanel.entityArray[index].yCords = gamePanel.scaledTileSize * yCords;
     }
+
+
 }
